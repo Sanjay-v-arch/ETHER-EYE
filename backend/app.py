@@ -8,7 +8,7 @@ from blockchain import BlockchainConnector
 from tracer import TransactionTracer
 from patterns import PatternDetector
 from contracts import ContractAnalyzer
-from backend.transaction import SessionFactory, get_neo4j_driver
+from backend.tracing import SessionFactory, get_neo4j_driver
 import schedule
 import time
 import json
