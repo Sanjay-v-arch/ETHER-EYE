@@ -1,90 +1,172 @@
 # backend/app.py
-from flask import Flask, render_template
-from flask_socketio import SocketIO, emit
-import threading
-import queue
+import asyncio
 import logging
-from blockchain import BlockchainConnector
-from tracer import TransactionTracer
-from patterns import PatternDetector
-from contracts import ContractAnalyzer
-from backend.transaction import SessionFactory, get_neo4j_driver
+import os
+from typing import Dict, List
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from neo4j import AsyncGraphDatabase
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
 import schedule
 import time
-import json
+from .tracing import TransactionTracer
+from .blockchain import BlockchainConnector
+from .risk import RiskProfiler
+from .patterns import PatternDetector
+from .ip_tracing import IPTracer
+from .cases import CaseManager
+from .reporting import ReportGenerator
+from .models import Base, Wallet, Transaction
 
-app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
-state = {
-    "graph": {},
-    "history": [],
-    "suspicious": {},
-    "queue": queue.Queue()
-}
+load_dotenv()
 
-class CryptoAnalysisTool:
-    def __init__(self):
-        self.connector = BlockchainConnector()
-        self.tracer = TransactionTracer(self.connector, get_neo4j_driver())
-        self.detector = PatternDetector(self.connector)
-        self.analyzer = ContractAnalyzer()
-        self.watched_addresses = set()
-        self.load_config()
+PGSQL_URL = os.getenv("POSTGRES_URL", "postgresql://user:password@localhost:5432/crypto_db")
+NEO4J_URL = os.getenv("NEO4J_URL", "bolt://localhost:7687")
+NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
+NEO4J_PASS = os.getenv("NEO4J_PASSWORD", "password")
 
-    def load_config(self):
-        with open("config.json", "r") as f:
-            config = json.load(f)
-            self.watched_addresses.update(config.get("watched_addresses", []))
+engine = create_engine(PGSQL_URL, pool_size=10, max_overflow=20)
+SessionFactory = sessionmaker(bind=engine)
+neo4j_driver = AsyncGraphDatabase.driver(NEO4J_URL, auth=(NEO4J_USER, NEO4J_PASS))
 
-    def monitor(self):
-        for address in self.watched_addresses:
-            blockchain = self.detect_blockchain(address)
-            self.stream_transactions(address, blockchain)
+app = FastAPI(title="ETHER-EYE", description="Crypto Investigation Tool for LEA")
 
-    def detect_blockchain(self, address: str) -> str:
-        if address.startswith("0x"): return "ethereum"
-        elif address.startswith(("1", "3", "bc1")): return "bitcoin"
-        elif address.startswith("addr1"): return "cardano"
-        else: return "solana"  # Simplified detection
+connector = BlockchainConnector()
+tracer = TransactionTracer(connector, neo4j_driver)
+risk_profiler = RiskProfiler(connector, SessionFactory)
+pattern_detector = PatternDetector(connector)
+ip_tracer = IPTracer(neo4j_driver)
+case_manager = CaseManager(neo4j_driver, connector)
+report_generator = ReportGenerator(connector, pattern_detector, ip_tracer, case_manager)
 
-    def stream_transactions(self, address: str, blockchain: str):
-        if blockchain == "ethereum":
-            self.connector.stream_ethereum_transactions(address)
+watched_addresses = set()
 
-    def process_queue(self):
-        while True:
-            try:
-                tx = state["queue"].get(timeout=1)
-                self.process_transaction(tx)
-                socketio.emit("update", {
-                    "graph": state["graph"],
-                    "history": state["history"],
-                    "suspicious": state["suspicious"]
-                })
-                state["queue"].task_done()
-            except queue.Empty:
-                time.sleep(1)
+async def load_config():
+    """Load monitored addresses from Neo4j."""
+    try:
+        async with neo4j_driver.session() as session:
+            result = await session.run("MATCH (w:Wallet) WHERE w.monitored = true RETURN w.address")
+            async for record in result:
+                watched_addresses.add(record["w.address"])
+            logger.info(f"Loaded {len(watched_addresses)} addresses from Neo4j")
+    except Exception as e:
+        logger.error(f"Failed to load config from Neo4j: {e}")
 
-    def process_transaction(self, tx: dict):
-        graph = self.tracer.trace_transaction(tx["hash"], tx["blockchain"])
-        scores = self.detector.analyze_wallet(tx["from"], tx["blockchain"])
-        state["graph"] = {"nodes": list(graph.nodes()), "edges": list(graph.edges(data=True))}
-        state["history"].append(tx)
-        if max([s for _, s in scores] or [0]) > 0.7:
-            state["suspicious"][tx["hash"]] = "High risk detected"
+@app.get("/trace/{tx_hash}", response_model=Dict)
+async def trace_transaction(tx_hash: str, blockchain: str = "ethereum", max_depth: int = 5):
+    """Trace a transaction across multiple hops."""
+    graph = await tracer.trace_transaction(tx_hash, blockchain, direction="forward", max_depth=max_depth)
+    return {"nodes": list(graph.nodes(data=True)), "edges": list(graph.edges(data=True))}
 
-    def run(self):
-        schedule.every(10).minutes.do(self.monitor)
-        threading.Thread(target=self.process_queue, daemon=True).start()
-        threading.Thread(target=lambda: schedule.run_pending() or time.sleep(60), daemon=True).start()
+@app.get("/wallet/{address}", response_model=Dict)
+async def analyze_wallet(address: str, blockchain: str = "ethereum"):
+    """Analyze a wallet's history and risk profile."""
+    async with SessionFactory() as session:
+        history = await connector.get_wallet_history(session, address, blockchain)
+        risk_score = await risk_profiler.calculate_risk(address, blockchain)
+        patterns = await pattern_detector.detect_patterns(history)
+        ip_data = await ip_tracer.get_geographical_distribution([tx["tx_hash"] for tx in history], blockchain)
+        return {
+            "address": address,
+            "history": history,
+            "risk_score": risk_score,
+            "patterns": patterns,
+            "ip_data": ip_data
+        }
 
-@app.route("/")
-def dashboard():
-    return render_template("index.html")
+@app.get("/suspicious_flows", response_model=List[Dict])
+async def get_suspicious_flows(min_value: float = 10000):
+    """Retrieve high-value suspicious transaction flows."""
+    flows = await tracer.find_suspicious_flows(min_value)
+    return flows
+
+@app.post("/cases/create", response_model=Dict)
+async def create_case(name: str, investigator: str, status: str = "open"):
+    """Create a new investigation case."""
+    case_id = await case_manager.create_case(name, investigator, status)
+    if case_id is None:
+        return {"error": "Failed to create case"}
+    return {"case_id": case_id, "name": name, "investigator": investigator, "status": status}
+
+@app.post("/cases/{case_id}/tx", response_model=Dict)
+async def associate_transaction(case_id: int, tx_hash: str, user: str, chain: str = "ethereum"):
+    """Associate a transaction with a case."""
+    success = await case_manager.associate_transaction(case_id, tx_hash, user, chain)
+    return {"success": success, "case_id": case_id, "tx_hash": tx_hash}
+
+@app.get("/cases/{case_id}", response_model=Dict)
+async def get_case_details(case_id: int):
+    """Get case details."""
+    details = await case_manager.get_case_details(case_id)
+    return details if details else {"error": "Case not found"}
+
+@app.post("/report/{address}", response_model=Dict)
+async def generate_report(address: str, chain: str = "ethereum", case_id: Optional[int] = None):
+    """Generate and store a report for a wallet."""
+    report_data = await report_generator.aggregate_report_data(address, chain, case_id)
+    ipfs_hash = await report_generator.generate_pdf_report(report_data)
+    return {"address": address, "ipfs_hash": ipfs_hash} if ipfs_hash else {"error": "Report generation failed"}
+
+@app.websocket("/ws/trace")
+async def trace_websocket(websocket: WebSocket):
+    """Stream real-time transaction tracing for an address."""
+    await websocket.accept()
+    try:
+        data = await websocket.receive_json()
+        address = data.get("address")
+        blockchain = data.get("blockchain", "ethereum")
+        max_depth = data.get("max_depth", 5)
+        async def send_graph(tx: dict):
+            graph = await tracer.trace_transaction(tx["tx_hash"], blockchain, max_depth=max_depth)
+            await websocket.send_json({
+                "tx_hash": tx["tx_hash"],
+                "nodes": list(graph.nodes(data=True)),
+                "edges": list(graph.edges(data=True))
+            })
+        await tracer.stream_and_trace(address, blockchain, max_depth=max_depth, callback=send_graph)
+    except WebSocketDisconnect:
+        logger.info(f"WebSocket disconnected for {address}")
+    except Exception as e:
+        logger.error(f"WebSocket error: {e}")
+        await websocket.close(code=1011)
+
+async def monitor_wallets():
+    """Monitor watched addresses for new transactions."""
+    async with SessionFactory() as session:
+        for address in watched_addresses:
+            blockchain = 'bitcoin' if address.startswith(('1', '3', 'bc1')) else 'ethereum'
+            history = await connector.get_wallet_history(session, address, blockchain, limit=10)
+            for tx in history:
+                existing = session.query(Transaction).filter_by(tx_hash=tx['tx_hash']).first()
+                if not existing:
+                    graph = await tracer.trace_transaction(tx['tx_hash'], blockchain)
+                    logger.info(f"New tx detected for {address}: {tx['tx_hash']}, traced {len(graph.nodes())} nodes")
+                    session.add(Transaction(tx_hash=tx['tx_hash'], wallet_address=address, amount=tx['value'], timestamp=datetime.fromtimestamp(tx['timestamp']), chain=blockchain))
+                    session.commit()
+
+async def run_automation():
+    """Run scheduled monitoring in the background."""
+    schedule.every(10).minutes.do(lambda: asyncio.create_task(monitor_wallets()))
+    logger.info("Started automated monitoring. Checking every 10 minutes.")
+    while True:
+        schedule.run_pending()
+        await asyncio.sleep(60)
+
+@app.on_event("startup")
+async def startup_event():
+    """Initialize app and start automation."""
+    try:
+        Base.metadata.create_all(engine)
+        await load_config()
+        asyncio.create_task(run_automation())
+    except Exception as e:
+        logger.error(f"Startup error: {e}")
+        raise
 
 if __name__ == "__main__":
-    tool = CryptoAnalysisTool()
-    tool.run()
-    socketio.run(app, port=5001, debug=True)
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=5000, log_level="info")
