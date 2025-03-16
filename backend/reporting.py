@@ -1,4 +1,7 @@
 # backend/reporting.py
+import aiohttp
+from neo4j import AsyncGraphDatabase
+import asyncio
 import logging
 import os
 from datetime import datetime
@@ -155,7 +158,7 @@ class ReportGenerator:
         return report_data
 
 if __name__ == "__main__":
-    neo4j_driver = GraphDatabase.driver(os.getenv("NEO4J_URL", "bolt://localhost:7687"),
+    neo4j_driver = AsyncGraphDatabase.driver(os.getenv("NEO4J_URL", "bolt://localhost:7687"),
                                         auth=(os.getenv("NEO4J_USER", "neo4j"), os.getenv("NEO4J_PASSWORD", "password")))
     connector = BlockchainConnector()
     tracer = TransactionTracer(connector, neo4j_driver)

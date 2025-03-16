@@ -1,4 +1,5 @@
 # backend/cases.py
+import aiohttp
 import logging
 from datetime import datetime
 from typing import Dict, List, Optional

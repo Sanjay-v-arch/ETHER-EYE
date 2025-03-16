@@ -152,7 +152,7 @@ class BlockchainConnector:
                             "value": float(data.get("amount", {}).get("lovelace", 0)) / 10**6,  # Lovelace to ADA
                             "timestamp": data.get("time"),
                             "block_number": data.get("block"),
-                            "token": {"symbol": asset["unit"], "value": float(asset["quantity"]) / 10**6} if data.get("assets") else None,
+                            "token": {"symbol": data["assets"][0]["unit"], "value": float(data["assets"][0]["quantity"]) / 10**6} if data.get("assets") else None,
                             "chain": chain
                         }
                 elif chain == "monero":
