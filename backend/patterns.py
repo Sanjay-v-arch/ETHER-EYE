@@ -9,7 +9,7 @@ import numpy as np
 import joblib
 import os
 from dotenv import load_dotenv
-from .blockchain import BlockchainConnector
+from backend.blockchain import BlockchainConnector
 
 load_dotenv()
 logger = logging.getLogger(__name__)

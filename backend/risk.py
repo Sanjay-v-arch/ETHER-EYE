@@ -4,8 +4,8 @@ import asyncio
 import logging
 from typing import Dict, List
 from sqlalchemy.orm import Session
-from .blockchain import BlockchainConnector
-from .patterns import PatternDetector
+from backend.blockchain import BlockchainConnector
+from backend.patterns import PatternDetector
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
