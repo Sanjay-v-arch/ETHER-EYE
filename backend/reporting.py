@@ -12,11 +12,11 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table
 from ipfshttpclient import connect
 from dotenv import load_dotenv
-from .blockchain import BlockchainConnector
-from .tracing import TransactionTracer
-from .patterns import PatternDetector
-from .ip_tracing import IPTracer
-from .cases import CaseManager
+from backend.blockchain import BlockchainConnector
+from backend.tracing import TransactionTracer
+from backend.patterns import PatternDetector
+from backend.ip_tracing import IPTracer
+from backend.cases import CaseManager
 
 load_dotenv()
 logger = logging.getLogger(__name__)

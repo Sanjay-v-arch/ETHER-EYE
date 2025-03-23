@@ -7,7 +7,7 @@ from neo4j import GraphDatabase
 import asyncio
 import os
 from dotenv import load_dotenv
-from .blockchain import BlockchainConnector
+from backend.blockchain import BlockchainConnector
 
 load_dotenv()
 logger = logging.getLogger(__name__)

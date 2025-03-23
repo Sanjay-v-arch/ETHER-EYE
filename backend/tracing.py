@@ -7,7 +7,8 @@ from neo4j import GraphDatabase
 import smtplib
 from email.mime.text import MIMEText
 import discord
-from discord import Webhook, AsyncWebhookAdapter
+from discord import Webhook
+import aiohttp
 import telegram
 from typing import Dict, Set, List, Optional
 import logging
@@ -18,7 +19,7 @@ from sklearn.ensemble import IsolationForest
 from sklearn.cluster import DBSCAN
 import numpy as np
 from ipfshttpclient import connect
-from .blockchain import BlockchainConnector
+from backend.blockchain import BlockchainConnector
 
 load_dotenv()
 logger = logging.getLogger(__name__)
@@ -217,7 +218,7 @@ class TransactionTracer:
                 logger.error(f"Email alert failed: {e}")
         elif channel == "discord":
             async with aiohttp.ClientSession() as session:
-                webhook = Webhook.from_url(self.discord_webhook, adapter=AsyncWebhookAdapter(session))
+                webhook = Webhook.from_url(self.discord_webhook, session=session)
                 await webhook.send(content=message)
                 logger.info(f"Discord alert sent: {message}")
         elif channel == "telegram":
