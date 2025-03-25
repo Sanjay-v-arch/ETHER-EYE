@@ -28,21 +28,23 @@ load_dotenv()
 PGSQL_URL = os.getenv("POSTGRES_URL", "postgresql://user:password@localhost:5432/crypto_db")
 NEO4J_URL = os.getenv("NEO4J_URL", "bolt://localhost:7687")
 NEO4J_USER = os.getenv("NEO4J_USER", "neo4j")
-NEO4J_PASS = os.getenv("NEO4J_PASSWORD", "password")
+NEO4J_PASS = os.getenv("NEO4J_PASSWORD", "mypassword")
 
 engine = create_engine(PGSQL_URL, pool_size=10, max_overflow=20)
 SessionFactory = sessionmaker(bind=engine)
 neo4j_driver = AsyncGraphDatabase.driver(NEO4J_URL, auth=(NEO4J_USER, NEO4J_PASS))
 
 app = FastAPI(title="ETHER-EYE", description="Crypto Investigation Tool for LEA")
-
+@app.get("/")
+async def root():
+    return {"message": "Welcome to ETHER-EYE Crypto Investigation Tool"}
 connector = BlockchainConnector()
 tracer = TransactionTracer(connector, neo4j_driver)
 risk_profiler = RiskProfiler(connector, SessionFactory)
 pattern_detector = PatternDetector(connector)
 ip_tracer = IPTracer(neo4j_driver)
 case_manager = CaseManager(neo4j_driver, connector)
-report_generator = ReportGenerator(connector, pattern_detector, ip_tracer, case_manager)
+report_generator = ReportGenerator(connector, tracer, pattern_detector, ip_tracer, case_manager)
 
 watched_addresses = set()
 
@@ -171,3 +173,4 @@ async def startup_event():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=5000, log_level="info")
+    logger.info("Server running at http://localhost:5000")

@@ -1,5 +1,6 @@
 flask
 flask-socketio
+uvicorn
 schedule
 web3
 neo4j
@@ -14,3 +15,7 @@ scikit-learn
 numpy
 networkx
 ipfshttpclient
+fastapi
+sqlalchemy
+discord.py
+python-telegram-bot

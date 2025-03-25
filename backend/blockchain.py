@@ -205,6 +205,8 @@ class BlockchainConnector:
         logger.error(f"Max retries exceeded for tx {tx_hash} on {chain}")
         return None
 
+    
+    
     async def get_wallet_history(self, session: aiohttp.ClientSession, address: str, chain: str, limit: int = 10) -> List[Dict]:
         """Fetch wallet transaction history across chains."""
         if not self.validate_address(address, chain):
@@ -354,3 +356,4 @@ if __name__ == "__main__":
             history = await connector.get_wallet_history(session, "0x28c6c06298d514db089934071355e5743bf21d60", "ethereum")
             print(f"History: {len(history)} transactions")
     asyncio.run(test())
+    
