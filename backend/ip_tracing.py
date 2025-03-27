@@ -152,26 +152,22 @@ class IPTracer:
             logger.error(f"Proxy detection error for {ip}: {e}")
             return False
 
-    async def get_geographical_distribution(self, tx_hashes: List[str], chain: str) -> List[Dict]:
-        """Return geographical distribution as List[Dict] for app.py compatibility."""
-        distribution = {}
-        tasks = [self.trace_ip(tx_hash, chain) for tx_hash in tx_hashes]
-        ip_data_list = await asyncio.gather(*tasks)
-
-        for ip_data in ip_data_list:
-            if ip_data and "location" in ip_data and ip_data["location"] != "Unknown":
-                location = ip_data["location"].split(",")[0]  # City or country
-                distribution[location] = distribution.get(location, 0) + 1
-
-        # Convert to List[Dict]
-        result = [{"location": loc, "count": count} for loc, count in distribution.items()]
-
-        # Store distribution in Neo4j
-        with self.driver.session() as neo_session:
-            neo_session.write_transaction(self._store_distribution_in_neo4j, distribution)
-
-        logger.info(f"Geographical distribution: {result}")
-        return result
+    async def get_geographical_distribution(self, tx_hashes: list, blockchain: str):
+            ip_data = {}
+            async with self.driver.session() as neo_session:  # Changed to async with
+                for tx_hash in tx_hashes:
+                    result = await neo_session.run(
+                        "MATCH (t:Transaction {tx_hash: $tx_hash}) "
+                        "OPTIONAL MATCH (t)-[:SENT_FROM]->(n:Node) "
+                        "RETURN n.ip, n.location",
+                        tx_hash=tx_hash
+                    )
+                    async for record in result:
+                        ip = record["n.ip"] if record["n.ip"] else "unknown"
+                        location = record["n.location"] if record["n.location"] else "unknown"
+                        ip_data[tx_hash] = {"ip": ip, "location": location}
+                logger.info(f"Geographical distribution retrieved for {len(ip_data)} transactions")
+            return ip_data
 
     @staticmethod
     def _store_in_neo4j(tx, ip_data: Dict):

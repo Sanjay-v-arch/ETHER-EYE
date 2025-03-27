@@ -52,20 +52,28 @@ class TransactionTracer:
         self.known_bridges = ["0x2fbb06f838e4b5cf28c7e5e52b0028cbedcf277f", "0x1116898dda4015ed8ddefb84b6e8bc24528af2d8"]  # Updated to real bridge examples
 
     async def trace_transaction(self, tx_hash: str, blockchain: str, direction: str = "forward", max_depth: int = 5, min_value: float = 0.001) -> nx.DiGraph:
-        """Trace multi-hop transactions with directionality and cross-chain detection."""
         self.graph.clear()
         visited = set()
         total_value = 0
-        async with aiohttp.ClientSession(connector=ProxyConnector.from_url("socks5://127.0.0.1:9050")) as session:
-            total_value = await self._trace_recursive(session, tx_hash, blockchain, direction, max_depth, min_value, visited, total_value)
-            cross_chain_txs = await self._detect_cross_chain(session, list(self.graph.nodes())[0] if self.graph.nodes() else tx_hash)
-            for tx in cross_chain_txs:
-                self.graph.add_edge(tx["from"], tx["to"], tx_hash=tx.get("id", "cross_chain"), value=float(tx["value"]), token=tx.get("token", {}).get("symbol", "unknown"))
-                total_value += float(tx["value"])
-            logger.info(f"Traced {len(self.graph.nodes())} nodes, {len(self.graph.edges())} edges, total value: {total_value}")
-            # Store graph in IPFS
-            ipfs_hash = await self._store_in_ipfs()
-            logger.info(f"Graph stored in IPFS: {ipfs_hash}")
+        try:
+            connector = ProxyConnector.from_url("socks5://127.0.0.1:9050")
+            async with aiohttp.ClientSession(connector=connector) as session:
+                total_value = await self._trace_recursive(session, tx_hash, blockchain, direction, max_depth, min_value, visited, total_value)
+                cross_chain_txs = await self._detect_cross_chain(session, list(self.graph.nodes())[0] if self.graph.nodes() else tx_hash)
+        except Exception as e:
+            logger.warning(f"Proxy failed ({e}), falling back to direct connection")
+            async with aiohttp.ClientSession() as session:
+                tx_data = await self.connector.get_transaction_data(session, tx_hash, blockchain)
+                logger.info(f"Transaction data for {tx_hash}: {tx_data}")  # Debug log
+                total_value = await self._trace_recursive(session, tx_hash, blockchain, direction, max_depth, min_value, visited, total_value)
+                cross_chain_txs = await self._detect_cross_chain(session, list(self.graph.nodes())[0] if self.graph.nodes() else tx_hash)
+    
+        for tx in cross_chain_txs:
+            self.graph.add_edge(tx["from"], tx["to"], tx_hash=tx.get("id", "cross_chain"), value=float(tx["value"]), token=tx.get("token", {}).get("symbol", "unknown"))
+            total_value += float(tx["value"])
+        logger.info(f"Traced {len(self.graph.nodes())} nodes, {len(self.graph.edges())} edges, total value: {total_value}")
+        ipfs_hash = await self._store_in_ipfs()
+        logger.info(f"Graph stored in IPFS: {ipfs_hash}")
         return self.graph
 
     async def _trace_recursive(self, session, tx_hash: str, blockchain: str, direction: str, depth: int, min_value: float, visited: Set[str], total_value: float) -> float:
@@ -82,8 +90,14 @@ class TransactionTracer:
         self.graph.add_edge(from_addr, to_addr, tx_hash=tx_hash, value=tx_data["value"], timestamp=tx_data["timestamp"])
         total_value += tx_data["value"]
 
-        with self.driver.session() as neo_session:
-            neo_session.write_transaction(self._store_in_neo4j, tx_data)
+            # Use async context for Neo4j
+        async with self.driver.session() as neo_session:
+            await neo_session.run(
+                "MERGE (f:Address {address: $from_address}) "
+                "MERGE (t:Address {address: $to_address}) "
+                "MERGE (f)-[r:SENT {tx_hash: $tx_hash, value: $value, timestamp: $timestamp}]->(t)",
+                from_address=from_addr, to_address=to_addr, tx_hash=tx_hash, value=tx_data["value"], timestamp=tx_data["timestamp"]
+            )
 
         if direction == "forward":
             to_txs = await self.connector.get_wallet_history(session, to_addr, blockchain, limit=5)
