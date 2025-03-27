@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ether-Eye - Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #ffffff; /* White background */
+            color: #000000; /* Black for primary text */
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: #000000;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            /* Initial state with gaps and curved ends */
+            max-width: 1200px;
+            margin: 0 auto; /* Center horizontally */
+            transform: translateY(20px); /* Use transform for top gap to avoid shaking */
+            border-radius: 0 50px 0 50px; /* Curved ends on left and right */
+            transition: max-width 0.6s ease, transform 0.6s ease, border-radius 0.6s ease; /* Slower transition, exclude margin */
+        }
+
+        /* Scrolled state */
+        .navbar.scrolled {
+            max-width: 100%;
+            transform: translateY(0); /* Remove top gap using transform */
+            border-radius: 0; /* Remove curved ends */
+            padding: 15px 40px; /* Maintain padding */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .logo-icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .navbar nav {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .navbar nav ul {
+            list-style: none;
+            display: inline-flex;
+            gap: 30px;
+        }
+
+        .navbar nav ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 16px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .navbar nav ul li a.active,
+        .navbar nav ul li a:hover {
+            color: #ffffff;
+        }
+
+        /* Sign Up Section */
+        .auth-section {
+            padding: 80px 40px;
+            text-align: center;
+            min-height: calc(100vh - 200px); /* Adjust for navbar and footer */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-card {
+            max-width: 400px;
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .auth-card h2 {
+            font-size: 36px;
+            font-weight: 700; /* Ensure bold */
+            margin-bottom: 20px;
+            color: #000000;
+        }
+
+        .auth-card p {
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .form-group input::placeholder {
+            color: #b0b0b0;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #a855f7;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .auth-btn:hover {
+            background-color: #9333ea;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 30px 0;
+            color: #666666;
+            font-size: 14px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .divider::before {
+            margin-right: 10px;
+        }
+
+        .divider::after {
+            margin-left: 10px;
+        }
+
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            border: 2px solid #a855f7;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #a855f7;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            width: 100%; /* Ensure full width for centering */
+            max-width: 300px; /* Limit width for better appearance */
+            margin: 0 auto; /* Center horizontally */
+        }
+
+        .google-btn:hover {
+            background-color: #a855f7;
+            color: #ffffff;
+        }
+
+        .google-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .auth-link {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .auth-link a {
+            color: #a855f7;
+            text-decoration: none;
+        }
+
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 40px;
+            background-color: #1e293b;
+            border-top: 1px solid #2a2f3e;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section {
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+
+        .footer-section p,
+        .footer-section ul li a {
+            font-size: 14px;
+            color: #d1d5db;
+            text-decoration: none;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a:hover {
+            color: #a855f7;
+        }
+
+        .contact-info {
+            margin-top: 10px;
+        }
+
+        .contact-info a {
+            color: #d1d5db;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            color: #a855f7;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .footer-bottom-left {
+            flex: 1;
+        }
+
+        .footer-bottom-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background-color: #2a2f3e;
+            border-radius: 50%;
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: #a855f7;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-icon">⛓️</span> ETHER-EYE
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">home</a></li>
+                <li><a href="features.html">features</a></li>
+                <li><a href="about.html">about</a></li>
+                <li><a href="contactus.html">contact us</a></li>
+                <li><a href="signin.html">sign in</a></li>
+                <li><a href="signup.html" class="active">sign up</a></li> <!-- Added Sign Up link with active class -->
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sign Up Section -->
+    <section class="auth-section">
+        <div class="auth-card">
+            <h2>Sign Up</h2>
+            <p>Create your ETHER-EYE account.</p>
+            <form>
+                <div class="form-group">
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Confirm Password" required>
+                </div>
+                <button type="submit" class="auth-btn">Sign Up</button>
+            </form>
+            <div class="divider">or</div>
+            <button class="google-btn">
+                <img src="https://www.google.com/favicon.ico" alt="Google Icon">
+                Sign up with Google
+            </button>
+            <div class="auth-link">
+                Already have an account? <a href="signin.html">Sign In</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ETHER-EYE</h3>
+                <p>ETHER-EYE is a blockchain analytics platform dedicated to bringing transparency and security to Web3 through advanced transaction tracing and visualization.</p>
+                <p class="contact-info"><strong>Email:</strong> <a href="mailto:support@ethereye.com">support@ethereye.com</a></p>
+                <p class="contact-info"><strong>Address:</strong> 123 Blockchain Ave, Crypto City, CA 90210</p>
+            </div>
+            <div class="footer-section">
+                <h3>Features</h3>
+                <ul>
+                    <li><a href="features.html#wallet-tracing">Wallet/Transaction Tracing</a></li>
+                    <li><a href="features.html#graph-visualization">Graph Visualization</a></li>
+                    <li><a href="features.html#streaming-dashboard">Streaming Dashboard</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API Reference</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Media Kit</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Status</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-left">
+                <p>© 2025 ETHER-EYE. All rights reserved.</p>
+            </div>
+            <div class="footer-bottom-right">
+                <a href="#" class="social-icon">🐦</a>
+                <a href="#" class="social-icon">💼</a>
+                <a href="#" class="social-icon">🎮</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) { // Trigger after scrolling 50px
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Placeholder for Google OAuth functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const googleBtn = document.querySelector('.google-btn');
+            googleBtn.addEventListener('click', () => {
+                console.log('Initiating Google OAuth sign-up...');
+                // Replace with actual OAuth URL
+                // window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=code&scope=email%20profile';
+            });
+
+            const form = document.querySelector('form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const password = form.querySelector('input[type="password"]:nth-child(1)').value;
+                const confirmPassword = form.querySelector('input[type="password"]:nth-child(2)').value;
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+                console.log('Sign up with email/password...');
+                // Add backend logic to handle email/password sign-up
+            });
+        });
+    </script>
+</body>
+</html>

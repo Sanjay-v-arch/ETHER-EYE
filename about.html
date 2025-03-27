@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ether-Eye - About</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #ffffff; /* White background */
+            color: #000000; /* Black for primary text */
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: #000000;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            /* Initial state with gaps and curved ends */
+            max-width: 1200px;
+            margin: 0 auto; /* Center horizontally */
+            transform: translateY(20px); /* Use transform for top gap to avoid shaking */
+            border-radius: 0 50px 0 50px; /* Curved ends on left and right */
+            transition: max-width 0.6s ease, transform 0.6s ease, border-radius 0.6s ease; /* Slower transition */
+        }
+
+        /* Scrolled state */
+        .navbar.scrolled {
+            max-width: 100%;
+            transform: translateY(0); /* Remove top gap using transform */
+            border-radius: 0; /* Remove curved ends */
+            padding: 15px 40px; /* Maintain padding */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .logo-icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .navbar nav {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .navbar nav ul {
+            list-style: none;
+            display: inline-flex;
+            gap: 30px;
+        }
+
+        .navbar nav ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 16px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .navbar nav ul li a.active,
+        .navbar nav ul li a:hover {
+            color: #ffffff;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 40px;
+            text-align: center;
+            min-height: calc(100vh - 200px); /* Match Sign In/Sign Up pages */
+        }
+
+        .about h2 {
+            font-size: 48px;
+            font-weight: 700; /* Ensure bold */
+            margin-bottom: 20px;
+            color: #000000;
+        }
+
+        .about .subtitle {
+            font-size: 18px;
+            color: #666666;
+            margin-bottom: 60px;
+        }
+
+        /* Our Story Section */
+        .story-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .story-text {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+        }
+
+        .story-text h3 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #000000;
+        }
+
+        .story-text p {
+            font-size: 16px;
+            color: #666666;
+            margin-bottom: 20px;
+        }
+
+        .story-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 40px;
+            text-align: center;
+            background-color: #f9fafb; /* Light gray background for contrast */
+        }
+
+        .features h2 {
+            font-size: 48px;
+            font-weight: 700; /* Ensure bold */
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+            color: #1f2937; /* Match Features page */
+        }
+
+        .features h2 .highlight {
+            position: relative;
+        }
+
+        .features h2 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: #a855f7;
+            border-radius: 2px;
+        }
+
+        .feature-list {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .feature-item {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            width: 350px;
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+        }
+
+        .feature-item img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .feature-item h4 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #a855f7;
+        }
+
+        .feature-item p {
+            font-size: 14px;
+            color: #666666;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 40px;
+            background-color: #1e293b;
+            border-top: 1px solid #2a2f3e;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section {
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #ffffff; /* Updated to white to match previous pages */
+        }
+
+        .footer-section p,
+        .footer-section ul li a {
+            font-size: 14px;
+            color: #d1d5db;
+            text-decoration: none;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a:hover {
+            color: #a855f7;
+        }
+
+        .contact-info {
+            margin-top: 10px;
+        }
+
+        .contact-info a {
+            color: #d1d5db;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            color: #a855f7;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .footer-bottom-left {
+            flex: 1;
+        }
+
+        .footer-bottom-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background-color: #2a2f3e;
+            border-radius: 50%;
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: #a855f7;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-icon">⛓️</span> ETHER-EYE
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">home</a></li>
+                <li><a href="features.html">features</a></li>
+                <li><a href="about.html" class="active">about</a></li> <!-- Set as active -->
+                <li><a href="contactus.html">contact us</a></li>
+                <li><a href="signin.html">sign in</a></li>
+                <li><a href="signup.html">sign up</a></li> <!-- Added Sign Up link -->
+            </ul>
+        </nav>
+    </header>
+
+    <!-- About Section -->
+    <section class="about">
+        <h2>About ETHER-EYE</h2>
+        <p class="subtitle">We’re on a mission to bring transparency and security to blockchain transactions through advanced analytics and visualization.</p>
+
+        <!-- Our Story -->
+        <div class="story-content">
+            <div class="story-text">
+                <h3>Our Story</h3>
+                <p>ETHER-EYE was founded in 2023 by a group of students currently pursuing their undergraduate degree in Computer Science and Engineering, specializing in IoT, Cybersecurity, and Blockchain Technology. As part of their academic journey, they identified a critical gap in the blockchain ecosystem: the lack of accessible, user-friendly tools for tracking and analyzing transactions in real-time.</p>
+                <p>Driven by a passion for innovation and a commitment to enhancing blockchain security, the team developed ETHER-EYE as their final-year project. What started as a classroom idea quickly evolved into a powerful platform, thanks to their combined expertise in blockchain technology, data analytics, and user interface design. They collaborated with industry mentors and participated in hackathons, refining their tool to meet the needs of both individual users and enterprises.</p>
+                <p>Today, ETHER-EYE serves individuals, businesses, and law enforcement agencies, providing them with the insights needed to navigate the complex world of blockchain transactions safely and effectively. The team continues to innovate, with plans to integrate AI-driven anomaly detection and expand support for more blockchain networks in the future.</p>
+            </div>
+            <div class="story-image">
+                <img src="https://media.istockphoto.com/id/1324404871/vector/all-seeing-eye-illuminati-piramide-symbol.jpg?s=612x612&w=0&k=20&c=lbuGC5Le3UjOg-xXzoxrGMkQlG_qKtm2bxUwN99D-DU=" alt="Team Working">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2>Our <span class="highlight">Features</span></h2>
+        <div class="feature-list">
+            <div class="feature-item">
+                <img src="https://via.placeholder.com/350x150?text=Wallet+Tracing" alt="Wallet Tracing">
+                <h4>Wallet/Transaction Tracing</h4>
+                <p>Input wallet addresses or transaction hashes to trace multi-hop transactions across the blockchain, with support for Ethereum and Solana.</p>
+            </div>
+            <div class="feature-item">
+                <img src="https://via.placeholder.com/350x150?text=Graph+Visualization" alt="Graph Visualization">
+                <h4>Interactive Graph Visualization</h4>
+                <p>Visualize transaction flows with interactive graphs, featuring zoom, pan, and click-to-expand functionality. Suspicious flows are highlighted in red.</p>
+            </div>
+            <div class="feature-item">
+                <img src="https://via.placeholder.com/350x150?text=Streaming+Dashboard" alt="Streaming Dashboard">
+                <h4>Real-Time Streaming Dashboard</h4>
+                <p>Monitor tracked wallets with live updates on new transactions, including hash, value, and timestamp, with options to pause or resume updates.</p>
+            </div>
+            <div class="feature-item">
+                <img src="https://via.placeholder.com/350x150?text=Anomaly+Detection" alt="Anomaly Detection">
+                <h4>Anomaly Detection Display</h4>
+                <p>Detect suspicious patterns like high-value transfers or mixer usage, with alerts displayed on the graph or in a dedicated panel.</p>
+            </div>
+            <div class="feature-item">
+                <img src="https://via.placeholder.com/350x150?text=Alerts+History" alt="Alerts History">
+                <h4>Alerts History</h4>
+                <p>View a log of all alerts sent to Discord, Telegram, or email, with an option to export as a CSV file.</p>
+            </div>
+            <div class="feature-item">
+                <img src="https://via.placeholder.com/350x150?text=Settings" alt="Settings">
+                <h4>Settings/Configuration</h4>
+                <p>Customize tracing depth, alert thresholds, and other preferences to tailor the experience to your needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ETHER-EYE</h3>
+                <p>ETHER-EYE is a blockchain analytics platform dedicated to bringing transparency and security to Web3 through advanced transaction tracing and visualization.</p>
+                <p class="contact-info"><strong>Email:</strong> <a href="mailto:support@ethereye.com">support@ethereye.com</a></p>
+                <p class="contact-info"><strong>Address:</strong> 123 Blockchain Ave, Crypto City, CA 90210</p>
+            </div>
+            <div class="footer-section">
+                <h3>Features</h3>
+                <ul>
+                    <li><a href="features.html#wallet-tracing">Wallet/Transaction Tracing</a></li>
+                    <li><a href="features.html#graph-visualization">Graph Visualization</a></li>
+                    <li><a href="features.html#streaming-dashboard">Streaming Dashboard</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API Reference</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Media Kit</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Status</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-left">
+                <p>© 2025 ETHER-EYE. All rights reserved.</p>
+            </div>
+            <div class="footer-bottom-right">
+                <a href="#" class="social-icon">🐦</a>
+                <a href="#" class="social-icon">💼</a>
+                <a href="#" class="social-icon">🎮</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) { // Trigger after scrolling 50px
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Basic JavaScript for interactivity
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('About page loaded');
+        });
+    </script>
+</body>
+</html>

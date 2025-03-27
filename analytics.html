@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ether-Eye | Blockchain Analytics</title>
+    <meta name="description" content="Blockchain Analytics for Ethereum - Ether-Eye" />
+    <meta name="author" content="Lovable" />
+
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:title" content="Ether-Eye Blockchain Analytics" />
+    <meta property="og:description" content="Blockchain Analytics for Ethereum - Ether-Eye" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://storage.googleapis.com/gpt-engineer-screenshots/id-preview-e4177a81--4d346632-4097-4ca6-85c2-a496c443a21a.lovable.app-1742880901101.png" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@lovable_dev" />
+    <meta name="twitter:image" content="https://storage.googleapis.com/gpt-engineer-screenshots/id-preview-e4177a81--4d346632-4097-4ca6-85c2-a496c443a21a.lovable.app-1742880901101.png" />
+
+    <!-- Inline CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background-color: #2a2a3c;
+            color: #b0b0c0;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #6b48ff;
+        }
+
+        .sidebar .logo::before {
+            content: "⚙️";
+            margin-right: 8px;
+        }
+
+        .sidebar h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            display: flex;
+            align-items: center;
+            color: #b0b0c0;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+
+        .sidebar ul li a:hover,
+        .sidebar ul li a.active {
+            background-color: #3a3a4c;
+            color: #fff;
+        }
+
+        .sidebar ul li a::before {
+            content: "📊";
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        .sidebar ul li a.wallets::before { content: "👛"; }
+        .sidebar ul li a.traces::before { content: "🔍"; }
+        .sidebar ul li a.analytics::before { content: "📈"; }
+        .sidebar ul li a.explorer::before { content: "🌐"; }
+        .sidebar ul li a.settings::before { content: "⚙️"; }
+        .sidebar ul li a.login::before { content: "🔑"; }
+
+        /* Main Content */
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+            flex: 1;
+            background-color: #fff;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        header .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        header .date-range {
+            display: flex;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        header .date-range button {
+            padding: 8px 15px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: background 0.2s;
+        }
+
+        header .date-range button.active {
+            background: #6b48ff;
+            color: #fff;
+        }
+
+        header .controls button {
+            background-color: #6b48ff;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        header .controls button::before {
+            content: "📄";
+            margin-right: 5px;
+        }
+
+        header .controls button.settings::before {
+            content: "⚙️";
+        }
+
+        header .controls button:hover {
+            background-color: #5a3de6;
+        }
+
+        /* Stats Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+
+        .card.stats {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card .icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .card .info h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .card .info p {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card .change {
+            font-size: 12px;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .card .change.positive {
+            color: #28a745;
+            background-color: #e6f4ea;
+        }
+
+        .card .change.negative {
+            color: #dc3545;
+            background-color: #f8e1e4;
+        }
+
+        /* Tabs */
+        .tabs {
+            margin-top: 30px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            background: #fafafa;
+            padding: 5px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 14px;
+            color: #666;
+            transition: background 0.2s;
+        }
+
+        .tab-button.active {
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #6b48ff;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Grid for Charts */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .card-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .chart-placeholder {
+            height: 320px;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            border-radius: 5px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Coming Soon Placeholder */
+        .coming-soon {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .coming-soon h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .coming-soon p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .coming-soon button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #6b48ff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .coming-soon button:hover {
+            background-color: #5a3de6;
+        }
+
+        /* Recent Activity */
+        .recent-activity {
+            margin-bottom: 20px;
+        }
+
+        .recent-activity .card {
+            padding: 20px;
+        }
+
+        .recent-activity h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .recent-activity .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .recent-activity .tabs button {
+            background: none;
+            border: none;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .recent-activity .tabs button.active {
+            color: #6b48ff;
+            font-weight: bold;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-item .icon {
+            font-size: 20px;
+            margin-right: 10px;
+            color: #6b48ff;
+        }
+
+        .activity-item .details {
+            flex: 1;
+        }
+
+        .activity-item .details h4 {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .activity-item .details p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .activity-item .value {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .activity-item .change {
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .activity-item .change.positive {
+            color: #28a745;
+        }
+
+        .activity-item .change.negative {
+            color: #dc3545;
+        }
+
+        /* Lovable Badge */
+        #lovable-badge {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 141px;
+            padding: 5px 13px;
+            background-color: #000;
+            color: #fff;
+            font-size: 12px;
+            border-radius: 5px;
+            font-family: sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 1000000;
+        }
+
+        #lovable-badge-close {
+            position: absolute;
+            top: -2px;
+            right: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #A1A1AA;
+            background: none;
+            border: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+                padding: 10px;
+            }
+
+            .sidebar h3,
+            .sidebar ul li a span {
+                display: none;
+            }
+
+            .sidebar ul li a {
+                justify-content: center;
+            }
+
+            .content {
+                margin-left: 60px;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            header .controls {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            header .controls button {
+                width: 100%;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">ETHER-EYE</div>
+        <h3>Main Navigation</h3>
+        <ul>
+            <li><a href="/dashboard.html"><span>Dashboard</span></a></li>
+            <li><a href="/wallets.html" class="wallets active"><span>Wallets</span></a></li>
+            <li><a href="/traces.html" class="traces"><span>Traces</span></a></li>
+            <li><a href="/analytics.html" class="analytics"><span>Analytics</span></a></li>
+        </ul>
+        <h3>Tools</h3>
+        <ul>
+            <li><a href="/explorer.html" class="explorer"><span>Explorer</span></a></li>
+            <li><a href="/settings.html" class="settings"><span>Settings</span></a></li>
+        </ul>
+        <ul>
+            <li><a href="/signup.html" class="signin"><span>Login / Sign Up</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <header>
+            <h1>Blockchain Analytics</h1>
+            <div class="controls">
+                <div class="date-range">
+                    <button class="date-button" data-range="24h">24H</button>
+                    <button class="date-button active" data-range="7d">7D</button>
+                    <button class="date-button" data-range="30d">30D</button>
+                    <button class="date-button" data-range="all">All</button>
+                </div>
+                <button>Export Report</button>
+                <button class="settings">Settings</button>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <div class="stats-container">
+            <div class="card stats">
+                <div class="icon">📊</div>
+                <div class="info">
+                    <h3>Total Transactions</h3>
+                    <p>1.48M</p>
+                </div>
+                <span class="change positive">+2.59%</span>
+            </div>
+            <div class="card stats">
+                <div class="icon">💸</div>
+                <div class="info">
+                    <h3>Network Volume</h3>
+                    <p>$84.2M</p>
+                </div>
+                <span class="change negative">-5.7%</span>
+            </div>
+            <div class="card stats">
+                <div class="icon">⛽</div>
+                <div class="info">
+                    <h3>Gas Used</h3>
+                    <p>124.5 ETH</p>
+                </div>
+                <span class="change negative">-0.8%</span>
+            </div>
+            <div class="card stats">
+                <div class="icon">👥</div>
+                <div class="info">
+                    <h3>Active Users</h3>
+                    <p>285.3K</p>
+                </div>
+                <span class="change positive">+1.2%</span>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" data-tab="overview">Network Overview</button>
+                <button class="tab-button" data-tab="transactions">Transaction Metrics</button>
+                <button class="tab-button" data-tab="wallets">Wallet Analysis</button>
+                <button class="tab-button" data-tab="custom">Custom Analytics</button>
+            </div>
+
+            <div class="tab-content active" id="overview">
+                <div class="card">
+                    <div class="card-header">Transaction Charts</div>
+                    <div class="chart-placeholder">
+                        Transaction Chart Placeholder (Add Chart.js for Visualization)
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="card">
+                        <div class="card-header">Top Gas Consumers</div>
+                        <div class="chart-placeholder">
+                            Gas Consumer Chart Placeholder
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">Contract Interactions</div>
+                        <div class="chart-placeholder">
+                            Contract Interactions Chart Placeholder
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="transactions">
+                <div class="card">
+                    <div class="card-header">Detailed Transaction Metrics</div>
+                    <div class="coming-soon">
+                        <h3>Transaction Metrics Coming Soon</h3>
+                        <p>Detailed transaction metrics and analysis will be available here</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="wallets">
+                <div class="card">
+                    <div class="card-header">Wallet Activity Analysis</div>
+                    <div class="coming-soon">
+                        <h3>Wallet Analysis Coming Soon</h3>
+                        <p>In-depth wallet activity analysis will be available here</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="custom">
+                <div class="card">
+                    <div class="card-header">Custom Analytics Builder</div>
+                    <div class="coming-soon">
+                        <h3>Build Your Own Analytics</h3>
+                        <p>Create custom analytics dashboards based on your specific needs</p>
+                        <button>Start Building</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-activity">
+            <div class="card">
+                <h2>Recent Activity</h2>
+                <div class="tabs">
+                    <button class="active">View All</button>
+                    <button>Monitored Wallets</button>
+                    <button>Suspicious Flows</button>
+                    <button>Active Investigations</button>
+                </div>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="icon">📤</div>
+                        <div class="details">
+                            <h4>New Transaction Detected</h4>
+                            <p>0xe8b2...85fc</p>
+                        </div>
+                        <div class="value">1258</div>
+                        <span class="change positive">18%</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="icon">📤</div>
+                        <div class="details">
+                            <h4>New Transaction Detected</h4>
+                            <p>0x05e...a8f3</p>
+                        </div>
+                        <div class="value">53</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="icon">📤</div>
+                        <div class="details">
+                            <h4>New Transaction Detected</h4>
+                            <p>0x7d2...c408</p>
+                        </div>
+                        <div class="value">24</div>
+                        <span class="change positive">3%</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="icon">👛</div>
+                        <div class="details">
+                            <h4>Wallet Update</h4>
+                            <p>New wallet added to monitoring list: 0xe8bc...b915</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lovable Badge -->
+    <a id="lovable-badge" target="_blank" href="https://lovable.dev/projects/4d346632-4097-4ca6-85c2-a496c443a21a?utm_source=gpt-engineer-badge">
+        <span style="color: #A1A1AA;">Edit with</span>
+        <svg width="60" height="12" viewBox="0 0 901 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M101.17 180C99.1471 180 97.1093 179.634 95.0573 178.902C93.0069 178.172 91.2229 177.048 89.7054 175.531L74.9496 161.956C55.0528 143.577 37.5874 125.83 22.5534 108.715C7.51781 91.6006 0 73.4043 0 54.1262C0 38.7264 5.17066 25.855 15.512 15.512C25.855 5.17066 38.6699 0 53.9567 0C62.6692 0 71.1566 2.00908 79.4188 6.02724C87.6811 10.0471 94.9316 16.3003 101.17 24.7868C107.971 16.3003 115.334 10.0471 123.259 6.02724C131.184 2.00908 139.559 0 148.384 0C163.671 0 176.486 5.17066 186.829 15.512C197.17 25.855 202.341 38.7264 202.341 54.1262C202.341 73.4043 194.838 91.6149 179.831 108.758C164.824 125.902 147.315 143.663 127.305 162.042L112.636 175.531C111.118 177.048 109.334 178.172 107.284 178.902C105.232 179.634 103.194 180 101.17 180Z" fill="#FF1814"/>
+            <path d="M856.464 66.2109C883.876 66.2109 900.323 83.6374 900.323 114.574V119.274H832.771C834.142 133.176 844.324 141.204 858.226 141.204C871.149 141.204 880.156 133.959 885.247 128.868L897.386 146.294C889.358 153.735 877.219 162.546 858.226 162.546C828.66 162.546 809.471 143.357 809.471 114.574C809.471 85.7913 828.072 66.2109 856.464 66.2109ZM855.289 85.5954C843.736 85.5954 835.317 91.2737 833.359 103.805H876.044C875.261 92.2528 867.037 85.5954 855.289 85.5954Z" fill="#FAFAFA"/>
+            <path d="M769.07 22.5586H793.153V159.621H769.07V22.5586Z" fill="#FAFAFA"/>
+            <path d="M709.548 162.558C694.863 162.558 685.073 156.292 679.395 146.894H679.003V159.621H654.919V22.5586H679.003V81.8869H679.395C685.073 72.4884 694.863 66.2227 709.548 66.2227C733.24 66.2227 753.017 83.4534 753.017 114.39C753.017 145.327 733.24 162.558 709.548 162.558ZM703.478 139.845C717.968 139.845 727.954 129.663 727.954 114.39C727.954 99.1176 717.968 88.9358 703.478 88.9358C688.989 88.9358 679.003 99.1176 679.003 114.39C679.003 129.663 688.989 139.845 703.478 139.845Z" fill="#FAFAFA"/>
+            <path d="M579.306 162.546C555.614 162.546 535.838 145.315 535.838 114.379C535.838 83.4416 555.614 66.2109 579.306 66.2109C593.992 66.2109 603.782 72.4766 609.46 81.8752H609.852V69.148H633.74V159.609H609.852V146.882H609.46C603.782 156.28 593.992 162.546 579.306 162.546ZM585.376 139.833C599.866 139.833 609.852 129.651 609.852 114.379C609.852 99.1059 599.866 88.9241 585.376 88.9241C570.887 88.9241 560.901 99.1059 560.901 114.379C560.901 129.651 570.887 139.833 585.376 139.833Z" fill="#FAFAFA"/>
+            <path d="M486.779 131.817L508.122 69.1602H535.534L498.527 159.621H475.031L438.22 69.1602H465.437L486.779 131.817Z" fill="#FAFAFA"/>
+            <path d="M387.868 66.2109C416.651 66.2109 437.994 85.9871 437.994 114.379C437.994 142.77 416.651 162.546 387.868 162.546C359.085 162.546 337.742 142.77 337.742 114.379C337.742 85.9871 359.085 66.2109 387.868 66.2109ZM387.868 88.9241C373.183 88.9241 362.414 98.9101 362.414 114.379C362.414 129.847 373.183 139.833 387.868 139.833C402.553 139.833 413.127 129.847 413.127 114.379C413.127 98.9101 402.553 88.9241 387.868 88.9241Z" fill="#FAFAFA"/>
+            <path d="M297.341 22.5586H321.425V159.621H297.341V22.5586Z" fill="#FAFAFA"/>
+        </svg>
+        <button id="lovable-badge-close">×</button>
+    </a>
+
+    <!-- Inline JavaScript -->
+    <script>
+        // Lovable Badge Functionality
+        if (navigator.userAgent.includes('puppeteer')) {
+            const badge = document.getElementById('lovable-badge');
+            if (badge) {
+                badge.style.display = 'none';
+            }
+        }
+
+        const closeButton = document.getElementById('lovable-badge-close');
+        if (closeButton) {
+            closeButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                const badge = document.getElementById('lovable-badge');
+                if (badge) {
+                    badge.style.display = 'none';
+                }
+            });
+        }
+
+        // Date Range Selection
+        const dateButtons = document.querySelectorAll('.date-button');
+        dateButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                dateButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                console.log('Date range selected:', button.dataset.range);
+                // Add logic to fetch data for the selected date range
+            });
+        });
+
+        // Tab Switching for Main Tabs
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Tab Switching for Recent Activity
+        const activityTabs = document.querySelectorAll('.recent-activity .tabs button');
+        activityTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                activityTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // Add logic to filter activity items based on tab
+                console.log(`Switched to activity tab: ${tab.textContent}`);
+            });
+        });
+
+        // Export Report (Mock)
+        const exportReportButton = document.querySelector('.controls button:not(.settings)');
+        exportReportButton.addEventListener('click', () => {
+            alert('Exporting report...\n(This is a mock action. Replace with real report generation.)');
+        });
+
+        // Settings (Mock)
+        const settingsButton = document.querySelector('.controls button.settings');
+        settingsButton.addEventListener('click', () => {
+            alert('Opening settings...\n(This is a mock action. Replace with real settings modal.)');
+        });
+
+        // Start Building (Mock)
+        const startBuildingButton = document.querySelector('.coming-soon button');
+        startBuildingButton.addEventListener('click', () => {
+            alert('Starting custom analytics builder...\n(This is a mock action. Replace with real functionality.)');
+        });
+    </script>
+</body>
+</html>

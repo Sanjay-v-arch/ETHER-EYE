@@ -1,0 +1,822 @@
+<!DOCTYPE html><!-- Last Published: Wed Mar 05 2025 17:10:26 GMT+0000 (Coordinated Universal Time) --><html data-wf-domain="www.elementus.io" data-wf-page="6362234779d3493153aa36bf" data-wf-site="6362234779d3496576aa36c0" lang="en"><head><meta charset="utf-8"><title>Elementus | The Data-driven Blockchain Intelligence Platform</title><meta content="Elementus is a data-first Web3 company empowering organizations to unify, explore, and operationalize the blockchain with the highest degree of confidence." name="description"><meta content="Elementus | The Data-driven Blockchain Intelligence Platform" property="og:title"><meta content="Elementus is a data-first Web3 company empowering organizations to unify, explore, and operationalize the blockchain with the highest degree of confidence." property="og:description"><meta content="images/63f87007c7b20c76d921a8c6_OG.png" property="og:image"><meta content="Elementus | The Data-driven Blockchain Intelligence Platform" property="twitter:title"><meta content="Elementus is a data-first Web3 company empowering organizations to unify, explore, and operationalize the blockchain with the highest degree of confidence." property="twitter:description"><meta content="https://cdn.prod.website-files.com/6362234779d3496576aa36c0/63f87007c7b20c76d921a8c6_OG.png" property="twitter:image"><meta property="og:type" content="website"><meta content="summary_large_image" name="twitter:card"><meta content="width=device-width, initial-scale=1" name="viewport"><link href="css/elementus.webflow.49d9f68c1.min.css" rel="stylesheet" type="text/css"><script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><link href="images/63622470ea8a4f62ecb25bae_Favicon.png" rel="shortcut icon" type="image/x-icon"><link href="images/63622473879c41b2fdf63bf1_Webclip.png" rel="apple-touch-icon"><script async="" src="https://www.googletagmanager.com/gtag/js?id=G-ENQXDX0PQJ"></script><script type="text/javascript">window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('set', 'developer_id.dZGVlNj', true);gtag('config', 'G-ENQXDX0PQJ');</script><!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TBCP7V4X');</script>
+<script src="js/api.js"></script>
+<div id="walletDetails">
+  <h2>Wallet Details</h2>
+  <p>Select a wallet to view details.</p>
+</div>
+
+<div id="walletList">
+  <h2>Wallet Addresses</h2>
+  <ul id="wallets"></ul>
+</div>
+
+<!-- End Google Tag Manager -->
+<style>
+html:not(.w-editor) .o-wrapper {
+  opacity: 0;
+}
+html:not(.w-editor) .c-header {
+  opacity: 0;
+}
+.splide__track.visible {
+  overflow: visible !important;
+}
+.c-body {
+  overscroll-behavior: none;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-width: none; /* Remove Scrollbar Firefox */
+}
+
+/* Remove Scrollbar Chrome */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Show in the live build */
+.swiper-slide.te:not(:first-child) {
+	display: flex !important;
+}
+
+@media only screen and (min-width: 992px) {
+  .c-header, .c-header-sub {
+		will-change: transform;
+	}
+}
+</style><link rel="stylesheet" href="css/swiper-bundle.min.css">
+</head><body class="c-body"><div class="c-global-css w-embed"><style>
+/* Variables */
+:root {
+  --violet-100: #8932f6;
+  --violet-200: #1b152b;
+  --violet-300: #CEABF9;
+  --white: #ffffff;
+}
+
+/* Root Scaling  */
+@media (min-width: 992px) and (max-width: 1920px) {
+  .t-display-1 {
+    font-size: clamp(2em, 6.5em, 7em);
+  }
+  .t-display-2 {
+    font-size: clamp(1.75em, 5em, 5.5em);
+  }
+  .t-display-3 {
+    font-size: clamp(1.75em, 4em, 4.5em);
+  }
+  .t-display-4 {
+    font-size: clamp(48px, 3em, 3.5em);
+  }
+  .t-display-5 {
+    font-size: clamp(1.25em, 1.5em, 2.0em);
+  }
+  .t-body-1 {
+    font-size: clamp(18px, 1.250em, 1.5em);
+  }
+  .t-body-2,
+  .c-txt-link,
+  .c-nav-link {
+    font-size: clamp(16px, 1.125em, 1.375em);
+  }
+  .t-body-3 {
+    font-size: clamp(16px, 1em, 1.250em);
+  }
+  .t-body-4 {
+    font-size: clamp(14px, 0.875em, 1.125em);
+  }
+  .t-metrics {
+  	font-size: clamp(1.5em, 3.125em, 3.625em);
+  }
+}
+
+/* Rich text desktop */
+@media (min-width: 992px) {
+  .t-rich-text {
+    max-width: clamp(700px, 50em, 50em);
+    margin: auto;
+  }
+  .t-rich-text h1 {
+    font-size: clamp(56px, 4em, 4em);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: clamp(20px, 1.5em, 32px);
+  }
+  .t-rich-text h2 {
+    font-size: clamp(48px, 3.5em, 3.5em);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: clamp(20px, 1.5em, 32px);
+  }
+  .t-rich-text h3 {
+    font-size: clamp(40px, 3em, 3em);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: clamp(20px, 1.5em, 32px);
+  }
+  .t-rich-text h4 {
+    font-size: clamp(32px, 2.5em, 2.5em);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: clamp(20px, 1.5em, 32px);
+  }
+  .t-rich-text h5 {
+    font-size: clamp(28px, 2.25em, 2.25em);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: clamp(20px, 1.5em, 32px);
+  }
+  .t-rich-text h6 {
+    font-size: clamp(24px, 2em, 2em);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: clamp(20px, 1.5em, 32px);
+  }
+  .t-rich-text p {
+    font-size: clamp(16px, 1.25em, 1.25em);
+    line-height: 1.4;
+    letter-spacing: 0em;
+    margin-bottom: clamp(20px, 1.5em, 32px);
+  }
+  .t-rich-text img {
+    margin-bottom: clamp(20px, 1.5em, 32px);
+  }
+  .t-rich-text li {
+    font-size: clamp(16px, 1.25em, 1.25em);
+    line-height: 1.4;
+    letter-spacing: 0em;
+  }
+  .t-rich-text blockquote {
+    font-size: clamp(28px, 2.25em, 2.25em);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.04em;
+    margin-bottom: clamp(20px, 1.5em, 32px);
+    padding-left: 0em;
+    border: 0;
+  }
+  .t-rich-text a {
+    font-weight: 600;
+  }
+}
+
+/* Rich text mobile */
+@media (max-width: 991px) {
+  .t-rich-text {
+    max-width: 760px;
+    margin: auto;
+  }
+  .t-rich-text h1 {
+    font-size: 32px;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 20px;
+  }
+  .t-rich-text h2 {
+    font-size: 28px;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 20px;
+  }
+  .t-rich-text h3 {
+    font-size: 24px;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 20px;
+  }
+  .t-rich-text h4 {
+    font-size: 22px;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 20px;
+  }
+  .t-rich-text h5 {
+    font-size: 20px;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 20px;
+  }
+  .t-rich-text h6 {
+    font-size: 18px;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 20px;
+  }
+  .t-rich-text p {
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: 0em;
+    margin-bottom: 20px;
+  }
+  .t-rich-text img {
+    margin-bottom: 20px;
+  }
+  .t-rich-text li {
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: 0em;
+  }
+  .t-rich-text blockquote {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.04em;
+    margin-bottom: 20px;
+    padding-left: 0em;
+    border: 0;
+  }
+  .t-rich-text a {
+    font-weight: 600;
+  }
+}
+
+/* Global  */
+a {
+  color: inherit;
+}
+
+[no-click] {
+  pointer-events: none;
+}
+[click] {
+  pointer-events: auto;
+}
+[no-selection]::selection {
+	background: transparent;
+  color: var(--white);
+  text-shadow: none;
+}
+
+/* Classes */
+.c-note {
+	height: clamp(28px, 2em, 2em);
+}
+.c-news-hover.is-active {
+	opacity: 1;
+}
+.nw {
+	height: calc(100% - 1em)
+}
+.nav-cta {
+	height: calc(100% - 1.75em)
+}
+button {
+	background-color: transparent;;
+}
+.swiper, 
+.swiper-wrapper { 
+	overflow: visible; 
+}
+.c-body.no-scroll {
+	overflow: hidden;
+}
+
+.line {
+	padding-right: 0.04em;
+}
+
+.c-pag-count.w--current {
+	opacity: 1;
+  
+}
+
+.c-pag-count {
+	transition-duration: 0.4s;
+	transition-property: opacity;
+	transition-timing-function: ease;
+}
+
+.c-bar-icon-wrap {
+	transition-property: color, background;
+  transition-duration: 0.4s;
+  transition-timing-function: ease;
+}
+
+.c-bar-link:hover .c-bar-icon-wrap {
+	background-color: var(--violet-200);
+  color: var(--violet-300);
+}
+
+.c-bar-icon-wrap {
+	width: clamp(32px, 2em, 2em) !important;
+  height: clamp(18px, 1.125em, 2em) !important;
+}
+
+/* Media query XXL */
+@media (min-width: 1921px) {
+  .c-body {
+    font-size: 18px;
+  }
+  .c-section.so-list .t-display-4 {
+		font-size: 2.5em;
+	}
+
+	.c-section.so-list .t-display-5 {
+		font-size: 2em;
+  	font-weight: 600;
+	}
+}
+
+/* Media query Desktop */
+@media(min-width: 992px) {
+	.swiper-slide.products {
+		width: 30em;
+	}
+  .swiper.article {
+		overflow: hidden !important;
+  	width: calc(100% + 2em)
+	}
+  .swiper-slide.c-article-top:last-child {
+  	margin-right: 2em;
+  }
+  .line {
+  	overflow: hidden;
+  	padding-bottom: 0.2em;
+  	margin-bottom: -0.2em;
+  	transform-origin: bottom;
+  }
+  .c-press-item .t-display-5{
+  	font-size: 2em !important;
+  }
+  .c-section.so-list .t-display-4,
+  .o-row.schedule-contact .t-display-4 {
+		font-size: 2.5em;
+	}
+
+	.c-section.so-list .t-display-5,
+  .c-ac-title .t-display-5 {
+		font-size: 2em;
+  	font-weight: 600;
+	}
+  .swiper-pag.te {
+  	transform: translate(-2em, -6em) !important;
+  }
+}
+
+/* Media query Tablet and Mobile */
+@media(max-width: 991px) {
+  /* 100vh Height fix */
+  .c-header-nav {
+		height: calc(var(--vh, 1vh) * 100);
+	}
+  .t-display-1.is-large {
+  	font-size: 17vw;
+  }
+}
+
+/* Hide in the Webflow designer */
+.swiper-slide.te:not(:first-child) {
+	display: none;
+}
+
+</style></div><main id="smooth-wrapper" class="o-page-wrapper"><div id="smooth-content" class="o-wrapper"><div class="c-header"><div class="c-header-inner"><div class="c-header-lt"><div class="c-logo-wrap"><a href="/" aria-current="page" class="c-logo-link w-inline-block w--current"><div class="c-logo-img w-embed"><svg width="10.5625em" height="2.625em" viewBox="0 0 169 42" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+<g clip-path="url(#clip0_8_5466)">
+<path d="M22.1038 18.5902H12.7485C11.5877 18.5902 10.6522 19.5378 10.6522 20.6749C10.6522 21.8293 11.605 22.7597 12.7658 22.7597H22.1211C23.2819 22.7597 24.2174 21.8121 24.2174 20.6749C24.2001 19.5206 23.2473 18.5902 22.1038 18.5902Z" fill="currentColor"></path>
+<path d="M22.156 25.7231C23.3168 25.7231 24.2696 26.6707 24.2696 27.8078C24.2696 28.9622 23.3341 29.8925 22.1733 29.8925H7.70717C10.2019 32.5286 13.7362 34.1654 17.6343 34.1654C25.1359 34.1654 31.1822 28.1179 31.1476 20.6577C31.1476 19.9513 31.0783 19.2621 30.9743 18.5902H35.1496C35.2362 19.2621 35.2708 19.9513 35.2882 20.6577C35.3401 30.3922 27.4574 38.2659 17.6689 38.2659C9.64754 38.2659 2.85624 32.9765 0.638672 25.7058H22.156V25.7231Z" fill="currentColor"></path>
+<path d="M17.4779 3.06677C25.4993 3.06677 32.2906 8.35612 34.5082 15.6268H12.7136C11.5529 15.6268 10.6 14.6792 10.6 13.5421C10.6 12.3877 11.5355 11.4574 12.6963 11.4574H27.4223C24.9276 8.82131 21.3933 7.18454 17.4952 7.18454C9.99363 7.18454 3.94729 13.232 3.98194 20.6922C3.98194 21.4158 4.05124 22.105 4.15519 22.7941H-0.00274815C-0.0893719 22.105 -0.141346 21.3986 -0.141346 20.6922C-0.19332 10.9405 7.68944 3.06677 17.4779 3.06677Z" fill="currentColor"></path>
+<path d="M48.4203 20.0892C50.326 20.0892 51.8159 21.2952 51.8679 23.1904H45.042C45.3018 21.2435 46.6878 20.0892 48.4203 20.0892ZM54.1894 26.7568H51.4348C50.967 27.7217 50.0835 28.4625 48.5242 28.4625C46.6359 28.4625 45.1979 27.2393 45.0073 25.2062H54.432C54.5013 24.7755 54.5186 24.3792 54.5186 23.9657C54.5186 20.3648 52.0412 17.9355 48.5242 17.9355C44.8687 17.9355 42.374 20.3993 42.374 24.2586C42.374 28.1179 44.99 30.5989 48.5242 30.5989C51.5561 30.6162 53.4964 28.8933 54.1894 26.7568ZM57.0307 30.4094H59.5774V13.9384H57.0307V30.4094ZM68.1359 20.0892C70.0416 20.0892 71.5315 21.2952 71.5835 23.1904H64.7575C65.0174 21.2435 66.4034 20.0892 68.1359 20.0892ZM73.905 26.7568H71.1504C70.6826 27.7217 69.799 28.4625 68.2398 28.4625C66.3514 28.4625 64.9135 27.2393 64.7229 25.2062H74.1476C74.2169 24.7755 74.2342 24.3792 74.2342 23.9657C74.2342 20.3648 71.7567 17.9355 68.2398 17.9355C64.5843 17.9355 62.0895 20.3993 62.0895 24.2586C62.0895 28.1179 64.7056 30.5989 68.2398 30.5989C71.2716 30.6162 73.212 28.8933 73.905 26.7568ZM94.2269 30.4094H96.7564V23.1732C96.7564 19.7446 94.5561 17.9355 91.6802 17.9355C89.8958 17.9355 88.146 18.8659 87.3837 20.3648C86.5348 18.7625 84.9062 17.9355 82.9485 17.9355C81.4759 17.9355 80.1246 18.5385 79.293 19.5378V18.1423H76.7463V30.4094H79.293V23.5522C79.293 21.3124 80.5231 20.1408 82.4115 20.1408C84.2652 20.1408 85.4953 21.2952 85.4953 23.5522V30.4094H88.0247V23.5522C88.0247 21.3124 89.2547 20.1408 91.1431 20.1408C92.9969 20.1408 94.2269 21.2952 94.2269 23.5522V30.4094ZM105.194 20.0892C107.099 20.0892 108.589 21.2952 108.641 23.1904H101.815C102.092 21.2435 103.478 20.0892 105.194 20.0892ZM110.98 26.7568H108.225C107.758 27.7217 106.874 28.4625 105.315 28.4625C103.426 28.4625 101.988 27.2393 101.798 25.2062H111.223C111.292 24.7755 111.309 24.3792 111.309 23.9657C111.309 20.3648 108.832 17.9355 105.315 17.9355C101.659 17.9355 99.1645 20.3993 99.1645 24.2586C99.1645 28.1179 101.781 30.5989 105.315 30.5989C108.329 30.6162 110.287 28.8933 110.98 26.7568ZM122.57 30.4094H125.1V23.1732C125.1 19.7446 122.934 17.9355 120.041 17.9355C118.568 17.9355 117.2 18.5385 116.368 19.5378V18.1423H113.821V30.4094H116.368V23.5522C116.368 21.3124 117.598 20.1408 119.486 20.1408C121.34 20.1408 122.57 21.2952 122.57 23.5522V30.4094ZM128.738 27.0153C128.738 29.5135 130.106 30.4267 132.289 30.4267H134.299V28.3075H132.74C131.666 28.3075 131.302 27.9284 131.302 27.0153V20.227H134.299V18.1595H131.302V15.0927H128.721V18.1423H127.265V20.2098H128.721V27.0153H128.738ZM147.83 18.1423H145.283V24.9822C145.283 27.222 144.053 28.3936 142.165 28.3936C140.311 28.3936 139.081 27.2393 139.081 24.9822V18.1423H136.551V25.3613C136.551 28.7899 138.752 30.5989 141.627 30.5989C143.083 30.5989 144.469 29.9959 145.283 28.9449V30.4094H147.83V18.1423ZM160.39 26.9808C160.252 22.5529 153.287 23.9313 153.287 21.4675C153.287 20.6405 153.997 20.0892 155.366 20.0892C156.752 20.0892 157.584 20.83 157.67 21.8982H160.217C160.078 19.4517 158.242 17.9527 155.453 17.9527C152.542 17.9527 150.706 19.5378 150.706 21.4847C150.706 25.9815 157.861 24.6032 157.861 26.998C157.861 27.8423 157.081 28.4625 155.609 28.4625C154.205 28.4625 153.235 27.6355 153.148 26.6362H150.515C150.619 28.8588 152.715 30.5989 155.661 30.5989C158.588 30.6162 160.39 29.0483 160.39 26.9808Z" fill="currentColor"></path>
+</g>
+<defs>
+<clipPath id="clip0_8_5466">
+<rect width="169" height="41.1777" fill="currentColor"></rect>
+</clipPath>
+</defs>
+</svg></div></a></div></div><div class="c-header-nav"><a href="/index.html" class="c-nav-link">home</a><a href="/about.html" class="c-nav-link">About</a><a href="/Features.html" class="c-nav-link">Features</a><a href="/contactus.html" class="c-nav-link">Contact Us</a></div><div class="c-nav-btn"><div class="c-nav-icon"><div class="c-nav-bar bar-1"></div><div class="c-nav-bar bar-2"></div></div></div><div id="w-node-ad7735a8-c4e6-de6a-562f-dccdbf6f099b-019da0a9" class="c-header-rt"><a href="/Signin" id="w-node-_8482aa11-1097-42bb-bbab-eb476d404648-019da0a9" class="c-btn is-small nav-cta w-inline-block"><div class="c-btn-inner"><p class="t-body-2">Sign in</p></div></a></div></div></div><section class="c-section hm-hero"><div class="o-container"><div class="o-row margin-64"><div class="o-col"><h1 split-text="" class="t-display-1">Unmask the Blockchain with <span class="is-highlight-2 is-violet100">The crypto tracing tool!</span></h1></div></div><p class="t-body-1 margin-24">ETHER-EYE empowers you to dive deep into the blockchain, revealing hidden insights with unparalleled clarity. Trace transactions across multiple chains to uncover their origins and destinations. Analyze wallets to assess risks, patterns, and activity with precision. Experience real-time updates and stunning 3D visualizations that bring crypto investigation to life.</p><div class="w-embed"></div><div class="o-row video"><div class="c-hm-grid"><div id="w-node-_2e444c8c-1f6d-9f9d-f52c-ca0c6b061c3b-53aa36bf" class="c-hm-grid-ver"><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div><div class="c-hm-line"></div></div><div class="c-hm-grid-hoz"><div class="c-hm-line-hoz"></div><div class="c-hm-line-hoz"></div><div class="c-hm-line-hoz"></div><div class="c-hm-line-hoz"></div><div class="c-hm-line-hoz"></div><div class="c-hm-line-hoz"></div><div class="c-hm-line-hoz"></div><div class="c-hm-line-hoz"></div><div class="c-hm-line-hoz"></div><div class="c-hm-line-hoz"></div><div class="c-hm-line-hoz"></div><div class="c-hm-line-hoz"></div></div></div><div class="c-reel-contain hm-video"><div class="c-reel hm-hero w-embed"><div style="width: 100%; height: 100%;" class="w-background-video w-background-video-atom">
+      <video playsinline="" loop="" muted="" autoplay="" data-wf-ignore="true" data-object-fit="cover">
+        <source src="fcfff262" data-wf-ignore="true">
+      </video>
+</div></div></div><div fade="" class="c-hm-featured"><div class="c-featured-lt"><div class="c-featured-top"><div class="t-display-4">Crypto forensic is at your fingertips.</div><a id="w-node-fee1a0f7-dd54-d573-3738-86e81c503c3b-1c503c3b" href="#contact" class="c-btn is-large is-white w-inline-block"><div class="c-btn-inner is-large"><p class="t-body-1">Sign in</p><div class="c-btn-icon w-embed"><svg width="1.5em" height="1.5em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M22 11.5H2M22 11.5L13 3M22 11.5L13 20" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path>
+</svg></div></div></a></div></div></div></div></div></section><div id="products" class="c-section hm-products"><div class="o-container"><div class="o-row products-title margin-120"><h2 split-text="" class="t-display-2">Cut through the <span class="is-highlight">noise</span></h2></div><div class="o-row margin-156"><p class="t-body-1">At ETHER-EYE, our mission is to equip users with powerful tools for seamless crypto investigation, risk detection, and market insights, ensuring clarity in the complex world of blockchain.</p></div><div class="o-row"><div class="swiper products"><div class="swiper-wrapper products"><div fade="" class="swiper-slide products"><div class="c-card-wrap"><div class="c-metrics-wrap card hide"><div class="t-metrics card">01</div><div no-click="" class="c-list-num-pattern w-embed"><svg width="3.5em" height="2.0625em" viewBox="0 0 56 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line y1="0.5" x2="56" y2="0.5" stroke="#1B152B"></line>
+<line y1="4.5" x2="56" y2="4.5" stroke="#1B152B"></line>
+<line y1="8.5" x2="56" y2="8.5" stroke="#1B152B"></line>
+<line y1="12.5" x2="56" y2="12.5" stroke="#1B152B"></line>
+<line y1="16.5" x2="56" y2="16.5" stroke="#1B152B"></line>
+<line y1="20.5" x2="56" y2="20.5" stroke="#1B152B"></line>
+<line y1="24.5" x2="56" y2="24.5" stroke="#1B152B"></line>
+<line y1="28.5" x2="56" y2="28.5" stroke="#1B152B"></line>
+<line y1="32.5" x2="56" y2="32.5" stroke="#1B152B"></line>
+</svg></div></div><section class="c-card"><div class="c-card-top"><h2 class="t-display-3">Uncover Blockchain Truths</h2><p class="t-body-3">At ETHER-EYE, we empower users to navigate the complex world of blockchain with precision and ease. Our platform provides cutting-edge tools for transaction tracing, wallet analysis, and real-time monitoring. Whether you’re investigating suspicious activity or seeking market insights, ETHER-EYE delivers clarity. Dive in and reveal the hidden stories behind every block with confidence.</p></div><div class="c-card-bt"><div class="c-img-contain card"><img src="images/63624ffa8a367e7192eb6420_card-2.svg" loading="eager" alt="" class="c-img"></div></div></section></div></div><div fade="" class="swiper-slide products"><div class="c-card-wrap"><div class="c-metrics-wrap card hide"><div class="t-metrics card">02</div><div no-click="" class="c-list-num-pattern w-embed"><svg width="3.5em" height="2.0625em" viewBox="0 0 56 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line y1="0.5" x2="56" y2="0.5" stroke="#1B152B"></line>
+<line y1="4.5" x2="56" y2="4.5" stroke="#1B152B"></line>
+<line y1="8.5" x2="56" y2="8.5" stroke="#1B152B"></line>
+<line y1="12.5" x2="56" y2="12.5" stroke="#1B152B"></line>
+<line y1="16.5" x2="56" y2="16.5" stroke="#1B152B"></line>
+<line y1="20.5" x2="56" y2="20.5" stroke="#1B152B"></line>
+<line y1="24.5" x2="56" y2="24.5" stroke="#1B152B"></line>
+<line y1="28.5" x2="56" y2="28.5" stroke="#1B152B"></line>
+<line y1="32.5" x2="56" y2="32.5" stroke="#1B152B"></line>
+</svg></div></div><section class="c-card"><div class="c-card-top"><h2 class="t-display-3">Risk Detection</h2><p class="t-body-3">The anonymity of digital assets can expose users to unseen risks and malicious actors. ETHER-EYE uses advanced graph analysis with Neo4j to trace suspicious transactions and assess wallet risks. With real-time WebSocket updates, you’ll detect anomalies and high-risk patterns instantly. Stay proactive with comprehensive risk scoring and 24/7 monitoring tailored for the blockchain.</p></div><div class="c-card-bt"><div class="c-img-contain card"><img src="images/63624ffabe172018f3c64126_card-1.svg" loading="eager" alt="" class="c-img"></div></div></section></div></div><div fade="" class="swiper-slide products"><div class="c-card-wrap"><div class="c-metrics-wrap card hide"><div class="t-metrics card">03</div><div no-click="" class="c-list-num-pattern w-embed"><svg width="3.5em" height="2.0625em" viewBox="0 0 56 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line y1="0.5" x2="56" y2="0.5" stroke="#1B152B"></line>
+<line y1="4.5" x2="56" y2="4.5" stroke="#1B152B"></line>
+<line y1="8.5" x2="56" y2="8.5" stroke="#1B152B"></line>
+<line y1="12.5" x2="56" y2="12.5" stroke="#1B152B"></line>
+<line y1="16.5" x2="56" y2="16.5" stroke="#1B152B"></line>
+<line y1="20.5" x2="56" y2="20.5" stroke="#1B152B"></line>
+<line y1="24.5" x2="56" y2="24.5" stroke="#1B152B"></line>
+<line y1="28.5" x2="56" y2="28.5" stroke="#1B152B"></line>
+<line y1="32.5" x2="56" y2="32.5" stroke="#1B152B"></line>
+</svg></div></div><section class="c-card"><div class="c-card-top"><h2 class="t-display-3">Market Insights</h2><p class="t-body-3">Gain a competitive edge with ETHER-EYE’s holistic view of the crypto landscape. Identify key players, track high-value flows, and analyze market trends with detailed reports. Our 3D visualizations bring trading behaviors and network activity to life. Make informed decisions and seize opportunities in the fast-paced world of digital assets.</p></div><div class="c-card-bt"><div class="c-img-contain card"><img src="images/63624ffae3962ce0acf108d9_card-3.svg" loading="eager" alt="" class="c-img"></div></div></section></div></div></div></div></div></div><div class="o-row margin-156"><a href="/who-we-serve" id="w-node-f69e8ebd-8567-82e8-9bab-00888f46ec46-53aa36bf" class="c-btn is-small w-inline-block"><div class="c-btn-inner"><p class="t-body-2">Who We Serve</p></div></a></div></div><div class="c-section hm-so"><div class="o-container"><div class="o-row so-content margin-104"><div fade="" class="o-col _w-11 md-w-24"><div class="c-img-contain solutions"><img src="images/63885ecd4697997141535f47_so-img.webp" loading="eager" alt="" class="c-img solutions"></div></div><div class="o-col _w-1 hide-tablet"></div><div class="o-col _w-12 md-w-24"><div fade="" class="c-so-txt"><h2 split-text="" class="t-display-2">How ETHER-EYE <span class="is-highlight is-violet100">simplifies</span></h2><div class="o-col _w-16 sm-w-24"><p class="t-body-1">By integrating advanced blockchain data with cutting-edge graph analysis and 3D visualizations, ETHER-EYE empowers users to trace transactions, uncover risks, gain market insights, and investigate on-chain activity with ease.</p></div></div></div></div><div class="o-row"><div class="o-col"><div class="c-list"><div class="c-list-item so"><div line="" class="c-line"></div><div fade="" class="c-list-inner so"><div class="o-col _w-5"><div id="w-node-f950f8c4-cd2f-6480-70b0-587acb3423c9-53aa36bf" class="c-metrics-wrap"><div class="t-metrics is-violet100">01</div><div no-click="" class="c-list-num-pattern w-embed"><svg width="3.5625em" height="2.0625em" viewBox="0 0 57 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="0.818359" y1="0.5" x2="56.8184" y2="0.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="4.5" x2="56.8184" y2="4.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="8.5" x2="56.8184" y2="8.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="12.5" x2="56.8184" y2="12.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="16.5" x2="56.8184" y2="16.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="20.5" x2="56.8184" y2="20.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="24.5" x2="56.8184" y2="24.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="28.5" x2="56.8184" y2="28.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="32.5" x2="56.8184" y2="32.5" stroke="#E3E0E0"></line>
+</svg></div></div></div><div class="o-col _w-12 md-w-12 sm-w-24"><h2 class="t-display-4">Seamless Data Access</h2></div><div class="o-col _w-7 md-w-14 sm-w-24"><p class="t-body-3">ETHER-EYE provides flexible data delivery through our robust API and real-time WebSocket updates. Access detailed blockchain insights for transaction tracing, wallet analysis, and risk assessment. Empower your investigations with structured data to identify patterns and opportunities. Unlock the full potential of crypto analysis with ease and precision.</p></div></div><div line="" class="c-line"></div></div><div class="c-list-item so"><div line="" class="c-line"></div><div fade="" class="c-list-inner so"><div class="o-col _w-5"><div id="w-node-c1d94eaf-9054-02a7-7840-621bd70f53d0-53aa36bf" class="c-metrics-wrap"><div class="t-metrics is-violet100">02</div><div no-click="" class="c-list-num-pattern w-embed"><svg width="3.5625em" height="2.0625em" viewBox="0 0 57 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="0.818359" y1="0.5" x2="56.8184" y2="0.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="4.5" x2="56.8184" y2="4.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="8.5" x2="56.8184" y2="8.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="12.5" x2="56.8184" y2="12.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="16.5" x2="56.8184" y2="16.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="20.5" x2="56.8184" y2="20.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="24.5" x2="56.8184" y2="24.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="28.5" x2="56.8184" y2="28.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="32.5" x2="56.8184" y2="32.5" stroke="#E3E0E0"></line>
+</svg></div></div></div><div class="o-col _w-12 md-w-12 sm-w-24"><h2 class="t-display-4">Advanced Block Explorer</h2></div><div class="o-col _w-7 md-w-14 sm-w-24"><p class="t-body-3">ETHER-EYE enhances blockchain exploration by organizing and enriching on-chain data with precision. Leverage Neo4j-powered graph analysis for accurate transaction tracing and wallet clustering. Identify key addresses, track fund flows, and tag suspicious activity effortlessly. Gain deep visibility into blockchain networks with our intuitive tools.</p></div></div><div line="" class="c-line"></div></div><div class="c-list-item so"><div line="" class="c-line"></div><div fade="" class="c-list-inner so"><div class="o-col _w-5"><div id="w-node-_2f95dfa8-e6e5-1323-db8a-e92fd6b13267-53aa36bf" class="c-metrics-wrap"><div class="t-metrics is-violet100">03</div><div no-click="" class="c-list-num-pattern w-embed"><svg width="3.5625em" height="2.0625em" viewBox="0 0 57 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<line x1="0.818359" y1="0.5" x2="56.8184" y2="0.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="4.5" x2="56.8184" y2="4.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="8.5" x2="56.8184" y2="8.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="12.5" x2="56.8184" y2="12.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="16.5" x2="56.8184" y2="16.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="20.5" x2="56.8184" y2="20.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="24.5" x2="56.8184" y2="24.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="28.5" x2="56.8184" y2="28.5" stroke="#E3E0E0"></line>
+<line x1="0.818359" y1="32.5" x2="56.8184" y2="32.5" stroke="#E3E0E0"></line>
+</svg></div></div></div><div class="o-col _w-12 md-w-12 sm-w-24"><h2 class="t-display-4">Dynamic Visualization</h2></div><div class="o-col _w-7 md-w-14 sm-w-24"><p class="t-body-3">With ETHER-EYE’s 3D visualization capabilities, complex blockchain data becomes clear and actionable. Transform transaction traces into interactive graphs using advanced rendering techniques. Support risk modeling, market analysis, and investigations with stunning visual insights. Navigate the crypto landscape with clarity and confidence.</p></div></div><div line="" class="c-line"></div></div></div></div></div></div></div><div id="about" class="c-section hm-about"><div class="o-container"><div class="o-row data margin-164"><div fade="" class="c-label margin-40"><div class="t-body-4 is-caps">about us</div></div><h2 split-text="" class="t-display-2">Reveal the <span class="is-highlight is-violet100">Blockchain’s</span>Hidden Truths</h2></div><div class="o-row"><div class="o-col _w-13 hide-tablet"></div><div fade="" class="o-col _w-7 md-w-14 sm-w-24"><p class="t-body-1">ETHER-EYE was born from a passion for unraveling the complexities of blockchain technology. We believe that true understanding comes from clear, actionable on-chain insights—the cornerstone of effective crypto analysis. Using advanced graph technology and stunning 3D visualizations, we deliver transparency and precision. Our mission is to empower users to investigate, analyze, and thrive in the digital asset space.</p></div></div></div><div class="c-solutions-bg w-embed"><svg class="solutions-bg" width="17.875em" height="18.625em" viewBox="0 0 286 298" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle opacity="0.1" cx="20.0923" cy="32.0923" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.26" cx="20.0923" cy="110.031" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="20.0923" cy="187.969" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="20.0923" cy="265.908" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="98.0307" cy="32.0923" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="98.0307" cy="110.031" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="98.0307" cy="187.969" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="98.0307" cy="265.908" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="175.969" cy="32.0923" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="175.969" cy="110.031" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="175.969" cy="187.969" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.26" cx="175.969" cy="265.908" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="253.908" cy="32.0923" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="253.908" cy="110.031" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="253.908" cy="187.969" r="32.0923" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="253.908" cy="265.908" r="32.0923" fill="#8932F6"></circle>
+</svg></div></div><div class="c-section hm-inv"><div class="o-container"><div class="o-row investors margin-176"><div class="o-col _w-5 md-w-24"><div fade="" class="c-label margin-40"><div class="t-body-4 is-caps">Supported Blockchains</div></div></div><div fade="" class="o-col _w-14 md-w-22"><h2 class="t-display-3">ETHER-EYE pioneers crypto analysis with expert-driven 3D and graph tech.</h2></div></div><div class="o-row"><div class="o-col"><div class="c-track line-1 margin-104"><div class="c-track-line line-1"><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="https://i.pinimg.com/736x/c9/a2/f1/c9a2f11ca69b38d35564774bbb6a3734.jpg" loading="eager" alt="" class="c-img"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv pill"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="images/solana.jpg" loading="eager" alt="" class="c-img"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="https://cdn.iconscout.com/icon/free/png-256/free-binance-logo-icon-download-in-svg-png-gif-file-formats--social-media-company-logos-icons-2249230.png?f=webp" loading="eager" alt="" class="c-img"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7VpO0b5VFZvlyF73A86-rjSsaS2RzOFQxWtR1I3QODA_mB1EZcMuLDf-W_UONm8uQf2M&usqp=CAU" loading="eager" alt="" class="c-img"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv circle"><div class="c-inv-circle"></div></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img alt="" loading="eager" width="Auto" src="https://images.vexels.com/media/users/3/144838/isolated/preview/0e8ecc882dcf98521ef01d2163416fc9-bitcoin-logo.png?w=360" class="c-img"></div></div></div><div class="c-track-line line-1"><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="https://i.pinimg.com/736x/c9/a2/f1/c9a2f11ca69b38d35564774bbb6a3734.jpg" loading="eager" alt="" class="c-img"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv pill"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWWclkGFB6usfVf6At5Hltucts6FJEg08xHg&s" loading="eager" alt="" class="c-img"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="https://cdn.iconscout.com/icon/free/png-256/free-binance-logo-icon-download-in-svg-png-gif-file-formats--social-media-company-logos-icons-2249230.png" loading="eager" alt="" class="c-img"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoayAZoJyeO2_iDZ31Xo4h8RccjGMjY1gjSQ&s" loading="eager" alt="" class="c-img"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv circle"><div class="c-inv-circle"></div></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img alt="" loading="eager" width="Auto" src="https://toppng.com/uploads/preview/cardano-logo-11552763966venp8i53za.png" class="c-img"></div></div></div></div><div class="c-track line-2"><div class="c-track-line line-2"><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="https://toppng.com/uploads/preview/cardano-logo-11552763966venp8i53za.png" loading="eager" alt="" class="c-img"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv circle"><div class="c-inv-circle"></div></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="https://w7.pngwing.com/pngs/848/388/png-transparent-binance-hd-logo-thumbnail.png" loading="eager" alt="" class="c-img"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv pill"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="https://cdn.dribbble.com/userupload/3216617/file/original-a834eb62ee6bca63ee28e93251987511.jpg?crop=118x89-2382x1786" loading="eager" alt="" class="c-img"></div></div></div><div class="c-track-line line-2"><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="https://media.istockphoto.com/id/886740086/vector/bitcoin-sign-illustration.jpg?s=612x612&w=0&k=20&c=wCc2rbkog1pQfX83qL1_36GNH5Xiv1rv08FyUWSD5Lc=" loading="eager" alt="" class="c-img"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv circle"><div class="c-inv-circle"></div></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="https://i0.wp.com/zenledger.io/wp-content/uploads/2023/01/ethereum.png" loading="eager" alt="" class="c-img"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv pill"></div></div><div fade="" class="c-inv-item"><div class="c-img-contain inv"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjVhZsXqCwZrd9OvFCv8KhNqnwN8vAXJ_szg&s" loading="eager" alt="" class="c-img"></div></div></div></div></div></div></div></div><div id="press" class="c-section hm-news"><div class="o-container"><div class="o-row news-title margin-196"><div fade="" class="c-label margin-48"><div class="t-body-4 is-caps">media</div></div><div fade="" class="o-col _w-13 md-w-22 sm-w-24"><h2 class="t-display-4">Here are some of our most recent media mentions, coverage, and press releases</h2></div></div><div class="o-row"><div class="swiper media w-dyn-list"><div role="list" class="swiper-wrapper c-news-wrap w-dyn-items"><div fade="" role="listitem" class="swiper-slide c-news-item w-dyn-item"><div class="c-news"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/64b1bfdb1162e3064fe8ed0b_logo-61c5f316408817d61af5.webp" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Checking in on Crypto’s Most Promising Startups</p></div></div><div class="c-news-hover-bt"><a href="https://www.theinformation.com/articles/checking-in-on-cryptos-most-promising-startups" target="_blank" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="currentColor" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div><div class="c-news-hover"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/64b1bfdb1162e3064fe8ed0b_logo-61c5f316408817d61af5.webp" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Checking in on Crypto’s Most Promising Startups</p></div></div><div class="c-news-hover-bt"><a href="https://www.theinformation.com/articles/checking-in-on-cryptos-most-promising-startups" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="white" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div></div><div fade="" role="listitem" class="swiper-slide c-news-item w-dyn-item"><div class="c-news"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/64b1c0e7605697a50202f307_vivid-color-beauty-cosmetics-for-all-skin-kosas-forbes-logo-28.png" loading="lazy" alt="" sizes="(max-width: 479px) 76vw, (max-width: 991px) 48vw, 24vw" srcset="images/64b1c0e7605697a50202f307_vivid-color-beauty-cosmetics-for-all-skin-kosas-forbes-logo-28-p-500.png 500w, images/64b1c0e7605697a50202f307_vivid-color-beauty-cosmetics-for-all-skin-kosas-forbes-logo-28-p-800.png 800w, images/64b1c0e7605697a50202f307_vivid-color-beauty-cosmetics-for-all-skin-kosas-forbes-logo-28-p-1080.png 1080w, images/64b1c0e7605697a50202f307_vivid-color-beauty-cosmetics-for-all-skin-kosas-forbes-logo-28.png 2400w" class="c-img static"></div><div class="margin-24"><p class="t-body-3">U.S. Government Owns Way More Bitcoin Than Any Other Country–So Why Aren’t They Selling It?</p></div></div><div class="c-news-hover-bt"><a href="https://www.forbes.com/sites/michaeldelcastillo/2023/06/16/us-government-owns-way-more-bitcoin-than-any-other-countryso-why-arent-they-selling-it/?sh=4bb66bef1f32" target="_blank" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="currentColor" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div><div class="c-news-hover"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/64b1c0e7605697a50202f307_vivid-color-beauty-cosmetics-for-all-skin-kosas-forbes-logo-28.png" loading="lazy" alt="" sizes="(max-width: 479px) 76vw, (max-width: 991px) 48vw, 100vw" srcset="images/64b1c0e7605697a50202f307_vivid-color-beauty-cosmetics-for-all-skin-kosas-forbes-logo-28-p-500.png 500w, images/64b1c0e7605697a50202f307_vivid-color-beauty-cosmetics-for-all-skin-kosas-forbes-logo-28-p-800.png 800w, images/64b1c0e7605697a50202f307_vivid-color-beauty-cosmetics-for-all-skin-kosas-forbes-logo-28-p-1080.png 1080w, images/64b1c0e7605697a50202f307_vivid-color-beauty-cosmetics-for-all-skin-kosas-forbes-logo-28.png 2400w" class="c-img static"></div><div class="margin-24"><p class="t-body-3">U.S. Government Owns Way More Bitcoin Than Any Other Country–So Why Aren’t They Selling It?</p></div></div><div class="c-news-hover-bt"><a href="https://www.forbes.com/sites/michaeldelcastillo/2023/06/16/us-government-owns-way-more-bitcoin-than-any-other-countryso-why-arent-they-selling-it/?sh=4bb66bef1f32" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="white" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div></div><div fade="" role="listitem" class="swiper-slide c-news-item w-dyn-item"><div class="c-news"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg.png" loading="lazy" alt="" sizes="(max-width: 479px) 76vw, (max-width: 991px) 48vw, 24vw" srcset="images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg-p-500.png 500w, images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg-p-800.png 800w, images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg-p-1080.png 1080w, images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg-p-1600.png 1600w, images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg-p-2000.png 2000w, images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg.png 2560w" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Why Large-Scale Institutional Adoption of Blockchain Technology Is Coming</p></div></div><div class="c-news-hover-bt"><a href="https://www.youtube.com/watch?v=kvQjXKceusA" target="_blank" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="currentColor" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div><div class="c-news-hover"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg.png" loading="lazy" alt="" sizes="(max-width: 479px) 76vw, (max-width: 991px) 48vw, 100vw" srcset="images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg-p-500.png 500w, images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg-p-800.png 800w, images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg-p-1080.png 1080w, images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg-p-1600.png 1600w, images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg-p-2000.png 2000w, images/64b1c3cb112b00eda241e609_2560px-NASDAQ_Logo.svg.png 2560w" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Why Large-Scale Institutional Adoption of Blockchain Technology Is Coming</p></div></div><div class="c-news-hover-bt"><a href="https://www.youtube.com/watch?v=kvQjXKceusA" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="white" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div></div><div fade="" role="listitem" class="swiper-slide c-news-item w-dyn-item"><div class="c-news"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/64b1c31e8202821a4e545879_bloomberg-logo-transparent.png" loading="lazy" alt="" sizes="(max-width: 479px) 76vw, (max-width: 991px) 48vw, 24vw" srcset="images/64b1c31e8202821a4e545879_bloomberg-logo-transparent-p-500.png 500w, images/64b1c31e8202821a4e545879_bloomberg-logo-transparent-p-800.png 800w, images/64b1c31e8202821a4e545879_bloomberg-logo-transparent-p-1080.png 1080w, images/64b1c31e8202821a4e545879_bloomberg-logo-transparent.png 2400w" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Celsius Creditors Seek to Unmask ‘Suspicious’ FTX Crypto Trades</p></div></div><div class="c-news-hover-bt"><a href="https://www.bloomberg.com/news/articles/2023-04-26/celsius-creditors-seek-to-unmask-suspicious-ftx-crypto-trades?sref=nty1u4zI&in_source=embedded-checkout-banner" target="_blank" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="currentColor" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div><div class="c-news-hover"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/64b1c31e8202821a4e545879_bloomberg-logo-transparent.png" loading="lazy" alt="" sizes="(max-width: 479px) 76vw, (max-width: 991px) 48vw, 100vw" srcset="images/64b1c31e8202821a4e545879_bloomberg-logo-transparent-p-500.png 500w, images/64b1c31e8202821a4e545879_bloomberg-logo-transparent-p-800.png 800w, images/64b1c31e8202821a4e545879_bloomberg-logo-transparent-p-1080.png 1080w, images/64b1c31e8202821a4e545879_bloomberg-logo-transparent.png 2400w" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Celsius Creditors Seek to Unmask ‘Suspicious’ FTX Crypto Trades</p></div></div><div class="c-news-hover-bt"><a href="https://www.bloomberg.com/news/articles/2023-04-26/celsius-creditors-seek-to-unmask-suspicious-ftx-crypto-trades?sref=nty1u4zI&in_source=embedded-checkout-banner" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="white" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div></div><div fade="" role="listitem" class="swiper-slide c-news-item w-dyn-item"><div class="c-news"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/63e14d1a49e379ad1d0e4267_prnews%20wire.png" loading="lazy" alt="" sizes="(max-width: 479px) 76vw, (max-width: 991px) 48vw, 24vw" srcset="images/63e14d1a49e379ad1d0e4267_prnews%20wire-p-500.png 500w, images/63e14d1a49e379ad1d0e4267_prnews%20wire-p-800.png 800w, images/63e14d1a49e379ad1d0e4267_prnews%20wire-p-1080.png 1080w, images/63e14d1a49e379ad1d0e4267_prnews%20wire.png 1200w" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Elementus Raises $10M in Funding Led by ParaFi Capital</p></div></div><div class="c-news-hover-bt"><a href="https://www.prnewswire.com/news-releases/elements-raises-10m-in-funding-to-continue-building-infrastructure-needed-to-make-blockchain-more-accessible-301739039.html" target="_blank" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="currentColor" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div><div class="c-news-hover"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/63e14d1a49e379ad1d0e4267_prnews%20wire.png" loading="lazy" alt="" sizes="(max-width: 479px) 76vw, (max-width: 991px) 48vw, 100vw" srcset="images/63e14d1a49e379ad1d0e4267_prnews%20wire-p-500.png 500w, images/63e14d1a49e379ad1d0e4267_prnews%20wire-p-800.png 800w, images/63e14d1a49e379ad1d0e4267_prnews%20wire-p-1080.png 1080w, images/63e14d1a49e379ad1d0e4267_prnews%20wire.png 1200w" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Elementus Raises $10M in Funding Led by ParaFi Capital</p></div></div><div class="c-news-hover-bt"><a href="https://www.prnewswire.com/news-releases/elements-raises-10m-in-funding-to-continue-building-infrastructure-needed-to-make-blockchain-more-accessible-301739039.html" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="white" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div></div><div fade="" role="listitem" class="swiper-slide c-news-item w-dyn-item"><div class="c-news"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/63dd73d177d977b7064171f0_download.png" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Global Crypto Exchange’s ‘Bank Level Security’ Allegedly a Myth Following Unresolved Hacks</p></div></div><div class="c-news-hover-bt"><a href="https://thefintechtimes.com/global-crypto-exchanges-bank-level-security-allegedly-a-myth-following-unresolved-hacks/" target="_blank" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="currentColor" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div><div class="c-news-hover"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/63dd73d177d977b7064171f0_download.png" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Global Crypto Exchange’s ‘Bank Level Security’ Allegedly a Myth Following Unresolved Hacks</p></div></div><div class="c-news-hover-bt"><a href="https://thefintechtimes.com/global-crypto-exchanges-bank-level-security-allegedly-a-myth-following-unresolved-hacks/" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="white" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div></div><div fade="" role="listitem" class="swiper-slide c-news-item w-dyn-item"><div class="c-news"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/63d067e6e76a3e2b4ce0d734_6347cf914934691e047c40b4.png" loading="lazy" alt="" sizes="(max-width: 479px) 76vw, (max-width: 991px) 48vw, 24vw" srcset="images/63d067e6e76a3e2b4ce0d734_6347cf914934691e047c40b4-p-500.png 500w, images/63d067e6e76a3e2b4ce0d734_6347cf914934691e047c40b4.png 1264w" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Elementus Named Top Blockchain Infrastructure Startup by Tracxn</p></div></div><div class="c-news-hover-bt"><a href="https://tracxn.com/d/emerging-startups/top-blockchain-infrastructure-startups-2023?utm_source=marketing-social_media&utm_medium=twitter&utm_campaign=emergingawards&utm_content=url_consolidatedsmengine" target="_blank" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="currentColor" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div><div class="c-news-hover"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/63d067e6e76a3e2b4ce0d734_6347cf914934691e047c40b4.png" loading="lazy" alt="" sizes="(max-width: 479px) 76vw, (max-width: 991px) 48vw, 100vw" srcset="images/63d067e6e76a3e2b4ce0d734_6347cf914934691e047c40b4-p-500.png 500w, images/63d067e6e76a3e2b4ce0d734_6347cf914934691e047c40b4.png 1264w" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Elementus Named Top Blockchain Infrastructure Startup by Tracxn</p></div></div><div class="c-news-hover-bt"><a href="https://tracxn.com/d/emerging-startups/top-blockchain-infrastructure-startups-2023?utm_source=marketing-social_media&utm_medium=twitter&utm_campaign=emergingawards&utm_content=url_consolidatedsmengine" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="white" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div></div><div fade="" role="listitem" class="swiper-slide c-news-item w-dyn-item"><div class="c-news"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/63a0ba139e035101b7303b53_prn_cision_logo_desktop.png" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Elementus Partners with CryptoArmor to Bring Enhanced Protection to Blockchain Businesses</p></div></div><div class="c-news-hover-bt"><a href="https://www.prnewswire.com/news-releases/elementus-partners-with-cryptoarmor-to-bring-enhanced-protection-to-blockchain-businesses-301703617.html" target="_blank" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="currentColor" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div><div class="c-news-hover"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/63a0ba139e035101b7303b53_prn_cision_logo_desktop.png" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Elementus Partners with CryptoArmor to Bring Enhanced Protection to Blockchain Businesses</p></div></div><div class="c-news-hover-bt"><a href="https://www.prnewswire.com/news-releases/elementus-partners-with-cryptoarmor-to-bring-enhanced-protection-to-blockchain-businesses-301703617.html" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="white" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div></div><div fade="" role="listitem" class="swiper-slide c-news-item w-dyn-item"><div class="c-news"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/6388653976d96ed43867ff06_new-york-post.svg" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">At least $300 million was looted from FTX, unclear if it will get paid back</p></div></div><div class="c-news-hover-bt"><a href="https://nypost.com/2022/11/23/300-million-was-looted-from-ftx-unclear-if-it-will-get-paid-back/" target="_blank" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="currentColor" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div><div class="c-news-hover"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/6388653976d96ed43867ff06_new-york-post.svg" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">At least $300 million was looted from FTX, unclear if it will get paid back</p></div></div><div class="c-news-hover-bt"><a href="https://nypost.com/2022/11/23/300-million-was-looted-from-ftx-unclear-if-it-will-get-paid-back/" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="white" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div></div><div fade="" role="listitem" class="swiper-slide c-news-item w-dyn-item"><div class="c-news"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/6388654082d2a957f811c20d_the-information.svg" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Bankruptcies Boost Analytics Startups—For Now; Sequoia’s Black Eye</p></div></div><div class="c-news-hover-bt"><a href="https://www.theinformation.com/articles/bankruptcies-boost-analytics-startups-for-now-sequoia-s-black-eye" target="_blank" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="currentColor" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div><div class="c-news-hover"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/6388654082d2a957f811c20d_the-information.svg" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Bankruptcies Boost Analytics Startups—For Now; Sequoia’s Black Eye</p></div></div><div class="c-news-hover-bt"><a href="https://www.theinformation.com/articles/bankruptcies-boost-analytics-startups-for-now-sequoia-s-black-eye" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="white" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div></div><div fade="" role="listitem" class="swiper-slide c-news-item w-dyn-item"><div class="c-news"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/63886545ff628b36e71ec9e4_wired.svg" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Wired Magazine - Crypto Contagion Is Spreading, Fast</p></div></div><div class="c-news-hover-bt"><a href="https://www.wired.com/story/ftx-collapse-genesis-crypto/" target="_blank" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="currentColor" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div><div class="c-news-hover"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/63886545ff628b36e71ec9e4_wired.svg" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Wired Magazine - Crypto Contagion Is Spreading, Fast</p></div></div><div class="c-news-hover-bt"><a href="https://www.wired.com/story/ftx-collapse-genesis-crypto/" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="white" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div></div><div fade="" role="listitem" class="swiper-slide c-news-item w-dyn-item"><div class="c-news"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/638865498ac4bc5cd9dce585_coindesk.svg" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Hackers Just Stole Another $180K in Ether from Cryptopia Exchange</p></div></div><div class="c-news-hover-bt"><a href="https://www.coindesk.com/markets/2019/01/30/hackers-just-stole-another-180k-in-ether-from-cryptopia-exchange/" target="_blank" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="currentColor" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div><div class="c-news-hover"><div class="c-news-hover-top"><div class="c-img-contain news-logo is-small margin-16"><img src="images/638865498ac4bc5cd9dce585_coindesk.svg" loading="lazy" alt="" class="c-img static"></div><div class="margin-24"><p class="t-body-3">Hackers Just Stole Another $180K in Ether from Cryptopia Exchange</p></div></div><div class="c-news-hover-bt"><a href="https://www.coindesk.com/markets/2019/01/30/hackers-just-stole-another-180k-in-ether-from-cryptopia-exchange/" class="c-news-arrow w-inline-block"><div class="c-news-icon w-embed"><svg width="1.1875em" height="1.25em" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.2084 9.61458H1.79175M17.2084 9.61458L10.2709 3.0625M17.2084 9.61458L10.2709 16.1667" stroke="white" stroke-width="1.15625" stroke-linecap="square"></path>
+</svg></div></a></div></div></div></div></div></div></div><div class="c-news-bg w-embed"><svg class="media-bg" width="33.25em" height="21.125em" viewBox="0 0 532 338" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle opacity="0.26" cx="28" cy="38" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="28" cy="106" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="28" cy="174" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="96" cy="38" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="96" cy="106" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="96" cy="174" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="164" cy="38" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="164" cy="106" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="164" cy="174" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="232" cy="38" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="232" cy="106" r="28" fill="#8932F6"></circle>
+<circle opacity="0.26" cx="232" cy="174" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="300" cy="106" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="300" cy="174" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="300" cy="242" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="300" cy="310" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="368" cy="106" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="368" cy="174" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="368" cy="242" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="368" cy="310" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="436" cy="106" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="436" cy="174" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="436" cy="242" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="436" cy="310" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="504" cy="106" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="504" cy="174" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="504" cy="242" r="28" fill="#8932F6"></circle>
+<circle opacity="0.1" cx="504" cy="310" r="28" fill="#8932F6"></circle>
+<line y1="0.5" x2="56" y2="0.5" stroke="#1B152B"></line>
+<line y1="4.5" x2="56" y2="4.5" stroke="#1B152B"></line>
+<line y1="8.5" x2="56" y2="8.5" stroke="#1B152B"></line>
+<line y1="12.5" x2="56" y2="12.5" stroke="#1B152B"></line>
+<line y1="16.5" x2="56" y2="16.5" stroke="#1B152B"></line>
+<line y1="20.5" x2="56" y2="20.5" stroke="#1B152B"></line>
+<line y1="24.5" x2="56" y2="24.5" stroke="#1B152B"></line>
+<line y1="28.5" x2="56" y2="28.5" stroke="#1B152B"></line>
+<line y1="32.5" x2="56" y2="32.5" stroke="#1B152B"></line>
+<path d="M22.5 11.5H2.5M22.5 11.5L13.5 3M22.5 11.5L13.5 20" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path>
+</svg></div></div></div></div></div></div><div id="contact" class="c-section contact"><div class="o-container"><div class="o-row contact"><div fade="" class="c-label is-dark margin-40"><div class="t-body-4 is-caps">contact us</div></div><div class="o-row contact-wrap"><div fade="" class="o-col _w-8 md-w-12 sm-w-24"><h2 split-text="" class="t-display-2">Ready for blockchain visibility?</h2></div><div class="o-col _w-3 hide-tablet"></div><div class="o-col _w-13 md-w-24"><div class="w-embed w-script"><script charset="utf-8" type="text/javascript" src="js/v2.js"></script>
+<script>
+  hbspt.forms.create({
+    region: "na1",
+    portalId: "23482151",
+    formId: "8831053b-5bf7-4553-b7a9-0f1d4dd01273"
+  });
+</script>
+
+<style>
+.hbspt-form form{
+	position: relative;
+}
+
+.hbspt-form .hs-form-field{
+	width: 100% !important;
+}
+
+.hs-input {
+  width: 100%;
+  height: 4.375em;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  border-top-style: none;
+  border-top-width: 1px;
+  border-top-color: black;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: black;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: #1B152B;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: black;
+  background-color: transparent;
+  transition-property: color, border-color;
+  transition-duration: 400ms, 400ms;
+  transition-timing-function: ease, ease;
+  font-family: Poppins;
+  color: #1B152B;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.hs-input:placeholder {
+  color: hsla(256.3636363636363, 34.38%, 12.55%, 0.50);
+}
+
+.hs-input:focus {
+	border: 0px !important;
+}
+
+.hs-input:checked {
+	border: 0px !important;
+}
+
+.form-columns-1,
+.form-columns-2 {
+	max-width: 100% !important;
+}
+
+.hs-form-field {
+	margin-bottom: 2em;
+}
+
+.hs-button {
+  padding-top: 0.75em;
+  padding-right: 1.5em;
+  padding-bottom: 0.75em;
+  padding-left: 1.5em;
+  background-color: #8932F6;
+  color: #FFFFFF;
+  text-decoration: none;
+  border: 0px;
+  border-radius: 100px;
+}
+
+.hs-form .actions input[type="submit"] {
+	cursor: pointer;
+}
+
+</style></div><div class="w-form"><form id="email-form" name="email-form" data-name="Email Form" method="get" data-wf-page-id="6362234779d3493153aa36bf" data-wf-element-id="ad0ad973-6266-d0c2-3fe4-8a168108e2d1"><label for="name-2">Name</label><input class="w-input" maxlength="256" name="name-2" data-name="Name 2" placeholder="" type="text" id="name-2" required=""><label for="email-2">Email Address</label><input class="w-input" maxlength="256" name="email-2" data-name="Email 2" placeholder="" type="email" id="email-2" required=""><label for="field-2">How can we help?</label><textarea required="" placeholder="" maxlength="5000" id="field-2" name="field-2" data-name="Field 2" class="w-input"></textarea><input type="submit" data-wait="Please wait..." class="w-button" value="Submit"></form><div class="w-form-done"><div>Thank you! Your submission has been received!</div></div><div class="w-form-fail"><div>Oops! Something went wrong while submitting the form.</div></div></div></div></div><div class="c-contact-bg w-embed"><svg class="contact-bg" width="31.9375em" height="21.4375em" viewBox="0 0 511 343" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle opacity="0.1" cx="6.99988" cy="28" r="28" fill="#3901AE"></circle>
+<circle opacity="0.26" cx="6.99988" cy="96" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="6.99988" cy="164" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="6.99988" cy="232" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="74.9999" cy="28" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="74.9999" cy="96" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="74.9999" cy="164" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="74.9999" cy="232" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="143" cy="28" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="143" cy="96" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="143" cy="164" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="143" cy="232" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="211" cy="28" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="211" cy="96" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="211" cy="164" r="28" fill="#3901AE"></circle>
+<circle opacity="0.26" cx="211" cy="232" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="279" cy="164" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="279" cy="232" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="279" cy="300" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="279" cy="368" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="347" cy="164" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="347" cy="232" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="347" cy="300" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="347" cy="368" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="415" cy="164" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="415" cy="232" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="415" cy="300" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="415" cy="368" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="483" cy="164" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="483" cy="232" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="483" cy="300" r="28" fill="#3901AE"></circle>
+<circle opacity="0.1" cx="483" cy="368" r="28" fill="#3901AE"></circle>
+</svg></div></div></div></div><footer id="footer" class="c-section footer"><div class="o-container"><div line="" class="c-line footer margin-40"></div><div fade="" class="o-row margin-40"><div class="o-grid footer"><div id="w-node-fde919a7-9cd8-aabf-1e2e-00b2aae2423c-aae2422d" class="o-col"><div class="margin-24"><div class="t-body-3 is-caps is-opacity-50 is-light">CONTACT US TODAY</div></div><a href="mailto:hello@elementus.io?subject=Elementus%20-%20Contact" class="w-inline-block"><h2 class="t-display-4 is-regular">hello@elementus.io</h2></a></div><div id="w-node-fde919a7-9cd8-aabf-1e2e-00b2aae24242-aae2422d" class="o-col"><div class="margin-20"><div class="t-body-3 is-caps is-opacity-50 is-light"></div></div><div class="c-footer-newsletter"><div class="w-embed w-script"><script charset="utf-8" type="text/javascript" src="js/v2.js"></script>
+<script>
+  hbspt.forms.create({
+    region: "na1",
+    portalId: "23482151",
+    formId: "a7d472e9-52c3-40f2-98ff-a9a5779b4566"
+  });
+</script>
+
+<style>
+.c-footer-newsletter .hs-form {
+	position: relative;
+}
+
+.c-footer-newsletter .hs-input {
+	width: 100%;
+  height: 100%;
+  margin-bottom: 0px;
+  padding-top: 0.5em;
+  padding-right: 0.75em;
+  padding-bottom: 0.5em;
+  padding-left: 1.5em;
+  border: 1px solid #fff;
+  border-radius: 10em;
+  background-color: transparent;
+  font-family: Poppins;
+  color: hsla(0, 0%, 0%, 0.4);
+  font-size: 14px;
+  height: 4em;
+}
+
+.c-footer-newsletter .hs-input:focus {
+	border: 1px solid #fff;
+  color: #fff;
+}
+
+.c-footer-newsletter .hs-input:active {
+	border: 1px solid #fff;
+  color: #fff;
+}
+
+.c-footer-newsletter .hs-input:placeholder {
+  color: hsla(0, 0%, 100%, 0.4);
+}
+
+.c-footer-newsletter .hs-input:tiny {
+  padding-left: 1em;
+}
+
+.c-footer-newsletter .hs_submit {
+  position: absolute;
+  left: auto;
+  top: 8px;
+  right: 0%;
+  bottom: auto;
+  display: flex;
+  align-items: center;
+  transform: translate(-0.5em, 0px);
+  height: 100%;
+  padding: 0 0.6em;
+  background-color: #8932F6;
+  border-radius: 10em;
+  color: hsla(0, 0%, 100%, 1);
+  text-decoration: none;
+  height: calc(100% - 16px);
+}
+
+.c-footer-newsletter .hs-button {
+  background: transparent;
+  border: 0;
+}
+
+.c-footer-newsletter .hs-button.is-small {
+  border-style: none;
+  border-radius: 6.25em;
+  background-color: #8932f6;
+}
+
+.c-footer-newsletter .hs-button.is-small.nw:tiny {
+  padding-right: 0.5em;
+  padding-left: 0.5em;
+  transform: translate(-0.5em, 0px);
+  font-size: 12px;
+}
+</style></div></div></div></div></div><div line="" class="c-line footer margin-40"></div><div class="o-row legal"><div id="w-node-fde919a7-9cd8-aabf-1e2e-00b2aae24258-aae2422d" class="t-body-2 is-opacity-50">© 2025 Elementus. All rights reserved.</div><div id="w-node-fde919a7-9cd8-aabf-1e2e-00b2aae2425a-aae2422d" class="c-social-wrap"><a href="https://www.youtube.com/channel/UCOKmFLJygy2li7BMd9ZzQcw" target="_blank" class="c-social w-inline-block"><div class="c-social-icon w-embed"><svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M26.153 10.0744C26.0207 9.6004 25.7683 9.16854 25.4204 8.82056C25.0724 8.47258 24.6405 8.22026 24.1665 8.08797C22.3875 7.61134 15.2276 7.61134 15.2276 7.61134C15.2276 7.61134 8.08577 7.60183 6.28866 8.08797C5.81466 8.22026 5.3828 8.47258 5.03482 8.82056C4.68685 9.16854 4.43452 9.6004 4.30223 10.0744C3.965 11.8958 3.79874 13.7447 3.80563 15.597C3.80004 17.4423 3.96629 19.2842 4.30223 21.0987C4.43452 21.5727 4.68685 22.0046 5.03482 22.3525C5.3828 22.7005 5.81466 22.9528 6.28866 23.0851C8.06579 23.5627 15.2276 23.5627 15.2276 23.5627C15.2276 23.5627 22.3685 23.5627 24.1665 23.0851C24.6405 22.9528 25.0724 22.7005 25.4204 22.3525C25.7683 22.0046 26.0207 21.5727 26.153 21.0987C26.4819 19.2835 26.6411 17.4417 26.6286 15.597C26.6424 13.7453 26.4832 11.8964 26.153 10.0744ZM12.9424 19.0133V12.1702L18.9017 15.597L12.9424 19.0133Z" fill="currentColor"></path>
+</svg></div></a><a href="https://www.linkedin.com/company/elementusio" target="_blank" class="c-social w-inline-block"><div class="c-social-icon w-embed"><svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.5197 18.3063H15.0524V14.297C15.0524 13.3409 15.0336 12.1105 13.7666 12.1105C12.4802 12.1105 12.2838 13.1508 12.2838 14.2264V18.3063H9.81645V10.0615H12.1866V11.1854H12.2185C12.5496 10.5374 13.355 9.85347 14.5581 9.85347C17.058 9.85347 17.5203 11.5597 17.5203 13.7808V18.3063H17.5197ZM7.02981 8.93338C6.23561 8.93338 5.59761 8.26671 5.59761 7.44669C5.59761 6.6274 6.2363 5.96145 7.02981 5.96145C7.82123 5.96145 8.4627 6.6274 8.4627 7.44669C8.4627 8.26671 7.82054 8.93338 7.02981 8.93338ZM8.26693 18.3063H5.79269V10.0615H8.26693V18.3063ZM18.754 3.58203H4.55418C3.87452 3.58203 3.32469 4.13927 3.32469 4.82681V19.6159C3.32469 20.3042 3.87452 20.8607 4.55418 20.8607H18.7519C19.4309 20.8607 19.9863 20.3042 19.9863 19.6159V4.82681C19.9863 4.13927 19.4309 3.58203 18.7519 3.58203H18.754Z" fill="currentColor"></path>
+</svg></div></a><a href="https://twitter.com/elementus_io" target="_blank" class="c-social w-inline-block"><div class="c-social-icon w-embed"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.4304 7.2997C21.7478 7.59976 21.0188 7.80418 20.2513 7.89751C21.0335 7.42621 21.6352 6.68338 21.9198 5.79708C21.1862 6.22519 20.3732 6.53682 19.5077 6.71038C18.8166 5.97063 17.8315 5.50781 16.7377 5.50781C14.6419 5.50781 12.9426 7.20714 12.9426 9.30063C12.9426 9.60147 12.9773 9.89073 13.0406 10.1677C9.88566 10.0188 7.08945 8.50381 5.21811 6.21362C4.88873 6.77054 4.70438 7.41772 4.70438 8.12275C4.70438 9.44179 5.37547 10.6012 6.39213 11.2823C5.76964 11.2622 5.18417 11.091 4.67352 10.8071V10.8542C4.67352 12.6939 5.97945 14.2281 7.71734 14.5776C7.39877 14.6632 7.06245 14.7095 6.71765 14.7095C6.47544 14.7095 6.24326 14.6863 6.01108 14.6431C6.49781 16.1496 7.89707 17.248 9.56246 17.2789C8.26656 18.2963 6.62431 18.9026 4.85557 18.9026C4.55473 18.9026 4.25467 18.8849 3.95306 18.851C5.64159 19.9262 7.63095 20.5549 9.7823 20.5549C16.7663 20.5549 20.5807 14.7727 20.5807 9.76654C20.5807 9.60532 20.5807 9.44257 20.5691 9.28058C21.3104 8.7491 21.9576 8.07724 22.4667 7.31513L22.4304 7.2997Z" fill="currentColor"></path>
+</svg></div></a></div><div id="w-node-fe23e725-0a38-a619-bf33-79c5dc73136b-aae2422d" class="c-legal-wrap"><a id="w-node-fde919a7-9cd8-aabf-1e2e-00b2aae24261-aae2422d" href="/legal/terms" class="c-txt-link is-opacity-50">Terms</a><a href="/legal/privacy" class="c-txt-link is-opacity-50">Privacy</a></div></div></div></footer></div></main><div class="w-dyn-list"><div class="w-dyn-empty"><div>No items found.</div></div></div><script src="js/jquery-3.5.1.min.dc5e7f18c8.js" type="text/javascript" crossorigin="anonymous"></script><script src="js/webflow.a0aa6ca1.8803622a53cb8314.js" type="text/javascript"></script><!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBCP7V4X"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="js/ScrollSmoother.min.js"></script>
+<script src="js/Flip.min.js"></script>
+<script src="js/split-type.js"></script>
+<script src="js/script.js"></script>
+
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async="" defer="" src="js/23482151.js"></script>
+<!-- End of HubSpot Embed Code -->
+
+<script src="js/swiper-bundle.min.js"></script>
+
+<script>
+// Slow Video Speed
+let homeVideo = document.querySelector("video");
+homeVideo.playbackRate = 0.6;
+
+
+	// Products
+  let swiperProducts = new Swiper(".swiper.products", {
+    slidesPerView: "auto",
+    spaceBetween: 40,
+    breakpoints: {
+    	320: {
+      	spaceBetween: 24
+      },
+      640: {
+      	spaceBetween: 24
+      }
+    }
+  });
+  
+  // Media
+  let swiperMedia = new Swiper(".swiper.media", {
+    slidesPerView: "auto",
+    spaceBetween: 24,
+  });
+  
+  // Article
+  let swiperArticle = new Swiper(".swiper.article", {
+    slidesPerView: "auto",
+    spaceBetween: 72,
+    navigation: {
+      nextEl: ".swiper-article-next",
+      prevEl: ".swiper-article-prev",
+    },
+  });
+</script>
+</body></html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ether-Eye - Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #ffffff; /* White background */
+            color: #000000; /* Black for primary text */
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: #000000;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            /* Initial state with gaps and curved ends */
+            max-width: 1200px;
+            margin: 0 auto; /* Center horizontally */
+            transform: translateY(20px); /* Use transform for top gap to avoid shaking */
+            border-radius: 0 50px 0 50px; /* Curved ends on left and right */
+            transition: max-width 0.6s ease, transform 0.6s ease, border-radius 0.6s ease; /* Slower transition, exclude margin */
+        }
+
+        /* Scrolled state */
+        .navbar.scrolled {
+            max-width: 100%;
+            transform: translateY(0); /* Remove top gap using transform */
+            border-radius: 0; /* Remove curved ends */
+            padding: 15px 40px; /* Maintain padding */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .logo-icon {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        .navbar nav {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .navbar nav ul {
+            list-style: none;
+            display: inline-flex;
+            gap: 30px;
+        }
+
+        .navbar nav ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 16px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .navbar nav ul li a.active,
+        .navbar nav ul li a:hover {
+            color: #ffffff;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 40px; /* Top and side gap */
+            text-align: center;
+            min-height: calc(100vh - 200px); /* Match Sign In/Sign Up pages */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-content {
+            max-width: 1200px; /* Side gap */
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+        }
+
+        /* Get in Touch Section */
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+        }
+
+        .contact-info h2 {
+            font-size: 36px;
+            font-weight: 700; /* Ensure bold */
+            margin-bottom: 30px;
+            color: #000000;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .contact-detail {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1;
+            min-width: 200px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-detail .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #f3e8ff; /* Light purple background for icons */
+            border-radius: 50%;
+            margin-bottom: 15px;
+            color: #a855f7;
+            font-size: 20px;
+        }
+
+        .contact-detail h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #000000;
+        }
+
+        .contact-detail p {
+            font-size: 14px;
+            color: #666666; /* Gray for secondary text */
+        }
+
+        .contact-detail a {
+            color: #666666;
+            text-decoration: none;
+        }
+
+        .contact-detail a:hover {
+            color: #a855f7;
+        }
+
+        /* Contact Form Section */
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+        }
+
+        .contact-form h2 {
+            font-size: 36px;
+            font-weight: 700; /* Ensure bold */
+            margin-bottom: 30px;
+            color: #000000;
+        }
+
+        .form-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #666666;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #b0b0b0;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group.full-width {
+            display: block;
+        }
+
+        .send-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: #a855f7;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .send-btn:hover {
+            background-color: #9333ea;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 40px;
+            background-color: #1e293b;
+            border-top: 1px solid #2a2f3e;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section {
+            min-width: 200px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #ffffff; /* Updated to white to match previous pages */
+        }
+
+        .footer-section p,
+        .footer-section ul li a {
+            font-size: 14px;
+            color: #d1d5db;
+            text-decoration: none;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a:hover {
+            color: #a855f7;
+        }
+
+        .contact-info {
+            margin-top: 10px;
+        }
+
+        .contact-info a {
+            color: #d1d5db;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            color: #a855f7;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .footer-bottom-left {
+            flex: 1;
+        }
+
+        .footer-bottom-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background-color: #2a2f3e;
+            border-radius: 50%;
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: #a855f7;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-icon">⛓️</span> ETHER-EYE
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">home</a></li>
+                <li><a href="features.html">features</a></li>
+                <li><a href="about.html">about</a></li>
+                <li><a href="contactus.html" class="active">contact us</a></li> <!-- Set as active -->
+                <li><a href="signin.html">sign in</a></li>
+                <li><a href="signup.html">sign up</a></li> <!-- Added Sign Up link -->
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="contact">
+        <div class="contact-content">
+            <!-- Get in Touch Section -->
+            <div class="contact-info">
+                <h2>Get in Touch</h2>
+                <div class="contact-details">
+                    <div class="contact-detail">
+                        <div class="icon">📍</div>
+                        <h3>Office Location</h3>
+                        <p>123 Blockchain Avenue<br>San Francisco, CA 94105<br>United States</p>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="icon">📞</div>
+                        <h3>Phone Numbers</h3>
+                        <p>+1 (555) 123-4567<br>+1 (555) 987-6543</p>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="icon">✉️</div>
+                        <h3>Email Addresses</h3>
+                        <p><a href="mailto:info@ethereye.com">info@ethereye.com</a><br><a href="mailto:support@ethereye.com">support@ethereye.com</a></p>
+                    </div>
+                    <div class="contact-detail">
+                        <div class="icon">⏰</div>
+                        <h3>Working Hours</h3>
+                        <p>Monday-Friday: 9 AM - 6 PM<br>Saturday: 10 AM - 2 PM<br>Sunday: Closed</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form Section -->
+            <div class="contact-form">
+                <h2>Send Us a Message</h2>
+                <div class="form-card">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="Full Name" value="John Doe" required>
+                            <input type="email" placeholder="Email Address" value="john@doe.com" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <input type="text" placeholder="Subject" value="How can we help you?" required>
+                        </div>
+                        <div class="form-group full-width">
+                            <textarea placeholder="Your message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="send-btn">Send Message <span>➤</span></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ETHER-EYE</h3>
+                <p>ETHER-EYE is a blockchain analytics platform dedicated to bringing transparency and security to Web3 through advanced transaction tracing and visualization.</p>
+                <p class="contact-info"><strong>Email:</strong> <a href="mailto:support@ethereye.com">support@ethereye.com</a></p>
+                <p class="contact-info"><strong>Address:</strong> 123 Blockchain Ave, Crypto City, CA 90210</p>
+            </div>
+            <div class="footer-section">
+                <h3>Features</h3>
+                <ul>
+                    <li><a href="features.html#wallet-tracing">Wallet/Transaction Tracing</a></li>
+                    <li><a href="features.html#graph-visualization">Graph Visualization</a></li>
+                    <li><a href="features.html#streaming-dashboard">Streaming Dashboard</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API Reference</a></li>
+                    <li><a href="#">Tutorials</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">Media Kit</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Status</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-bottom-left">
+                <p>© 2025 ETHER-EYE. All rights reserved.</p>
+            </div>
+            <div class="footer-bottom-right">
+                <a href="#" class="social-icon">🐦</a>
+                <a href="#" class="social-icon">💼</a>
+                <a href="#" class="social-icon">🎮</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) { // Trigger after scrolling 50px
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Basic JavaScript for form submission
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Contact Us page loaded');
+
+            const form = document.querySelector('form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = {
+                    fullName: form.querySelector('input[type="text"]').value,
+                    email: form.querySelector('input[type="email"]').value,
+                    subject: form.querySelector('input[placeholder="Subject"]').value,
+                    message: form.querySelector('textarea').value,
+                };
+                console.log('Form submitted:', formData);
+                // Add backend logic to handle form submission (e.g., send to an API)
+                alert('Message sent successfully!'); // Placeholder for user feedback
+                form.reset(); // Reset the form after submission
+            });
+        });
+    </script>
+</body>
+</html>

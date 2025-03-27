@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ether-Eye | Blockchain Analytics Dashboard</title>
+    <meta name="description" content="Blockchain Analytics Dashboard for Ethereum - Ether-Eye" />
+    <meta name="author" content="Lovable" />
+
+    <!-- Open Graph Meta Tags for Social Sharing -->
+    <meta property="og:title" content="Ether-Eye Blockchain Analytics Dashboard" />
+    <meta property="og:description" content="Blockchain Analytics Dashboard for Ethereum - Ether-Eye" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://storage.googleapis.com/gpt-engineer-screenshots/id-preview-e4177a81--4d346632-4097-4ca6-85c2-a496c443a21a.lovable.app-1742880901101.png" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@lovable_dev" />
+    <meta name="twitter:image" content="https://storage.googleapis.com/gpt-engineer-screenshots/id-preview-e4177a81--4d346632-4097-4ca6-85c2-a496c443a21a.lovable.app-1742880901101.png" />
+
+    <!-- Inline CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 220px;
+            background-color: #2a2a3c;
+            color: #b0b0c0;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+        }
+
+        .sidebar .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #6b48ff;
+        }
+
+        .sidebar .logo::before {
+            content: "⚙️";
+            margin-right: 8px;
+        }
+
+        .sidebar h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            display: flex;
+            align-items: center;
+            color: #b0b0c0;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+
+        .sidebar ul li a:hover,
+        .sidebar ul li a.active {
+            background-color: #3a3a4c;
+            color: #fff;
+        }
+
+        .sidebar ul li a::before {
+            content: "📊";
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        .sidebar ul li a.wallets::before { content: "👛"; }
+        .sidebar ul li a.traces::before { content: "🔍"; }
+        .sidebar ul li a.analytics::before { content: "📈"; }
+        .sidebar ul li a.explorer::before { content: "🌐"; }
+        .sidebar ul li a.settings::before { content: "⚙️"; }
+        .sidebar ul li a.login::before { content: "🔑"; }
+
+        /* Main Content */
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+            flex: 1;
+            background-color: #fff;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .header .search-bar {
+            display: flex;
+            align-items: center;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px 10px;
+            width: 300px;
+        }
+
+        .header .search-bar input {
+            border: none;
+            background: none;
+            outline: none;
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .header .search-bar::before {
+            content: "🔍";
+            margin-right: 5px;
+            color: #666;
+        }
+
+        .header .generate-report {
+            background-color: #6b48ff;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header .generate-report::before {
+            content: "📄";
+            margin-right: 5px;
+        }
+
+        .header .generate-report:hover {
+            background-color: #5a3de6;
+        }
+
+        /* Stats Cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card .icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .card .info h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .card .info p {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card .change {
+            font-size: 12px;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .card .change.positive {
+            color: #28a745;
+            background-color: #e6f4ea;
+        }
+
+        .card .change.negative {
+            color: #dc3545;
+            background-color: #f8e1e4;
+        }
+
+        /* Global Transaction Activity */
+        .global-transaction {
+            margin-bottom: 20px;
+        }
+
+        .global-transaction .card {
+            padding: 20px;
+        }
+
+        .global-transaction h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .global-transaction p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Recent Activity */
+        .recent-activity {
+            margin-bottom: 20px;
+        }
+
+        .recent-activity .card {
+            padding: 20px;
+        }
+
+        .recent-activity h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .recent-activity .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .recent-activity .tabs button {
+            background: none;
+            border: none;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .recent-activity .tabs button.active {
+            color: #6b48ff;
+            font-weight: bold;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-item .icon {
+            font-size: 20px;
+            margin-right: 10px;
+            color: #6b48ff;
+        }
+
+        .activity-item .details {
+            flex: 1;
+        }
+
+        .activity-item .details h4 {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .activity-item .details p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .activity-item .value {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .activity-item .change {
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .activity-item .change.positive {
+            color: #28a745;
+        }
+
+        .activity-item .change.negative {
+            color: #dc3545;
+        }
+
+        /* Lovable Badge */
+        #lovable-badge {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 141px;
+            padding: 5px 13px;
+            background-color: #000;
+            color: #fff;
+            font-size: 12px;
+            border-radius: 5px;
+            font-family: sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            z-index: 1000000;
+        }
+
+        #lovable-badge-close {
+            position: absolute;
+            top: -2px;
+            right: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #A1A1AA;
+            background: none;
+            border: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 60px;
+                padding: 10px;
+            }
+
+            .sidebar h3,
+            .sidebar ul li a span {
+                display: none;
+            }
+
+            .sidebar ul li a {
+                justify-content: center;
+            }
+
+            .content {
+                margin-left: 60px;
+            }
+
+            .header .search-bar {
+                width: 100%;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+   <!-- Sidebar -->
+   <div class="sidebar">
+    <div class="logo">ETHER-EYE</div>
+    <h3>Main Navigation</h3>
+    <ul>
+        <li><a href="/dashboard.html"><span>Dashboard</span></a></li>
+        <li><a href="/wallets.html" class="wallets active"><span>Wallets</span></a></li>
+        <li><a href="/traces.html" class="traces"><span>Traces</span></a></li>
+        <li><a href="/analytics.html" class="analytics"><span>Analytics</span></a></li>
+    </ul>
+    <h3>Tools</h3>
+    <ul>
+        <li><a href="/explorer.html" class="explorer"><span>Explorer</span></a></li>
+        <li><a href="/settings.html" class="settings"><span>Settings</span></a></li>
+    </ul>
+    <ul>
+        <li><a href="/signup.html" class="signin"><span>Login / Sign Up</span></a></li>
+    </ul>
+</div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <div class="header">
+            <h1>Blockchain Analytics Dashboard</h1>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search wallets or transaction" />
+            </div>
+            <button class="generate-report">Generate Report</button>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-container">
+            <div class="card">
+                <div class="icon">📊</div>
+                <div class="info">
+                    <h3>Total Transactions</h3>
+                    <p>1.48M</p>
+                </div>
+                <span class="change positive">+2.59%</span>
+            </div>
+            <div class="card">
+                <div class="icon">💸</div>
+                <div class="info">
+                    <h3>Network Volume</h3>
+                    <p>$84.2M</p>
+                </div>
+                <span class="change negative">-5.7%</span>
+            </div>
+            <div class="card">
+                <div class="icon">⛽</div>
+                <div class="info">
+                    <h3>Gas Used</h3>
+                    <p>124.5 ETH</p>
+                </div>
+                <span class="change negative">-0.8%</span>
+            </div>
+            <div class="card">
+                <div class="icon">👥</div>
+                <div class="info">
+                    <h3>Active Users</h3>
+                    <p>285.3K</p>
+                </div>
+                <span class="change positive">+1.2%</span>
+            </div>
+        </div>
+
+        <!-- Global Transaction Activity -->
+        <div class="global-transaction">
+            <div class="card">
+                <h2>Global Transaction Activity</h2>
+                <p>Real-time visualization of blockchain activity</p>
+                <div id="transaction-chart" style="height: 200px; background: #f5f5f5; margin-top: 10px; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: #666;">
+                    Chart Placeholder (Add Chart Library like Chart.js)
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-activity">
+            <div class="card">
+                <h2>Recent Activity</h2>
+                <div class="tabs">
+                    <button class="active">View All</button>
+                    <button>Monitored Wallets</button>
+                    <button>Suspicious Flows</button>
+                    <button>Active Investigations</button>
+                </div>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="icon">📤</div>
+                        <div class="details">
+                            <h4>New Transaction Detected</h4>
+                            <p>0xe8b2...85fc</p>
+                        </div>
+                        <div class="value">1258</div>
+                        <span class="change positive">18%</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="icon">📤</div>
+                        <div class="details">
+                            <h4>New Transaction Detected</h4>
+                            <p>0x05e...a8f3</p>
+                        </div>
+                        <div class="value">53</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="icon">📤</div>
+                        <div class="details">
+                            <h4>New Transaction Detected</h4>
+                            <p>0x7d2...c408</p>
+                        </div>
+                        <div class="value">24</div>
+                        <span class="change positive">3%</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="icon">👛</div>
+                        <div class="details">
+                            <h4>Wallet Update</h4>
+                            <p>New wallet added to monitoring list: 0xe8bc...b915</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ 
+
+    <!-- Inline JavaScript -->
+    <script>
+        // Lovable Badge Functionality
+        if (navigator.userAgent.includes('puppeteer')) {
+            const badge = document.getElementById('lovable-badge');
+            if (badge) {
+                badge.style.display = 'none';
+            }
+        }
+
+        const closeButton = document.getElementById('lovable-badge-close');
+        if (closeButton) {
+            closeButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                const badge = document.getElementById('lovable-badge');
+                if (badge) {
+                    badge.style.display = 'none';
+                }
+            });
+        }
+
+        // Search Functionality (Mock)
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = searchInput.value.trim();
+                if (query) {
+                    alert(`Searching for: ${query}\n(This is a mock search. Replace with real API call.)`);
+                }
+            }
+        });
+
+        // Generate Report (Mock)
+        const generateReportButton = document.querySelector('.generate-report');
+        generateReportButton.addEventListener('click', () => {
+            alert('Generating report...\n(This is a mock action. Replace with real report generation.)');
+        });
+
+        // Tab Switching for Recent Activity
+        const tabs = document.querySelectorAll('.recent-activity .tabs button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                // Add logic to filter activity items based on tab (e.g., fetch new data)
+                console.log(`Switched to tab: ${tab.textContent}`);
+            });
+        });
+    </script>
+</body>
+</html>
